@@ -6,7 +6,7 @@ use warnings;
 
 =head1 NAME
 
-VSGDR::UnitTest::TestSet::Representation::NET - The great new VSGDR::UnitTest::TestSet::Representation::NET!
+VSGDR::UnitTest::TestSet::Representation::NET - Sealed class for Microsoft Visual Studio Database Edition UnitTest Utility Suite by Ded MedVed
 
 =head1 VERSION
 

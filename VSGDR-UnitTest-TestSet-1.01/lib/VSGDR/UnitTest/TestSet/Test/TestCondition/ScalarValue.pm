@@ -6,7 +6,7 @@ use warnings;
 
 =head1 NAME
 
-VSGDR::UnitTest::TestSet::Test::TestCondition::ScalarValue - The great new VSGDR::UnitTest::TestSet::Test::TestCondition::ScalarValue!
+VSGDR::UnitTest::TestSet::Test::TestCondition::ScalarValue - Sealed class for Microsoft Visual Studio Database Edition UnitTest Utility Suite by Ded MedVed
 
 =head1 VERSION
 

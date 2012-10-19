@@ -1,4 +1,4 @@
-package VSGDR::UnitTest::TestSet::Test::TestCondition::RowCount;
+package VSGDR::UnitTest::TestSet::Test::TestCondition::ExecutionTime;
 
 use 5.010;
 use strict;
@@ -6,7 +6,7 @@ use warnings;
 
 =head1 NAME
 
-VSGDR::UnitTest::TestSet::Test::TestCondition::RowCount - The great new VSGDR::UnitTest::TestSet::Test::TestCondition::RowCount!
+VSGDR::UnitTest::TestSet::Test::TestCondition::ExecutionTime - Sealed class for Microsoft Visual Studio Database Edition UnitTest Utility Suite by Ded MedVed
 
 =head1 VERSION
 
@@ -15,7 +15,6 @@ Version 1.00
 =cut
 
 our $VERSION = '1.00';
-
 
 use parent qw(VSGDR::UnitTest::TestSet::Test::TestCondition) ;
 BEGIN {
@@ -28,14 +27,14 @@ use Carp ;
 our $VERSION    = "0.02";
 use vars qw($AUTOLOAD %ok_field);
 
-
 # Authorize constructor hash fields
 my %ok_params = () ;
-for my $attr ( qw(CONDITIONTESTACTIONNAME CONDITIONNAME CONDITIONENABLED CONDITIONROWCOUNT CONDITIONRESULTSET) ) { $ok_params{$attr}++; } 
+for my $attr ( qw(CONDITIONTESTACTIONNAME CONDITIONNAME CONDITIONENABLED CONDITIONEXECUTIONTIME) ) { $ok_params{$attr}++; } 
 my %ok_fields       = () ;
 my %ok_fields_type  = () ;
+
 # Authorize attribute fields
-for my $attr ( qw(conditionTestActionName conditionName conditionEnabled conditionResultSet conditionRowCount) )  { $ok_fields{$attr}++; $ok_fields_type{$attr} = 'plain'; } 
+for my $attr ( qw(conditionTestActionName conditionName conditionEnabled conditionExecutionTime ) ) { $ok_fields{$attr}++; $ok_fields_type{$attr} = 'plain'; } 
 $ok_fields_type{conditionName}      = 'quoted';  
 $ok_fields_type{conditionEnabled}   = 'bool';  
 
@@ -50,33 +49,35 @@ sub _init {
     $self->{OK_PARAMS}      = \%ok_params ;
     $self->{OK_FIELDS}      = \%ok_fields ;
     $self->{OK_FIELDS_TYPE} = \%ok_fields_type ;
+
     my @validargs           = grep { exists($$ref{$_}) } keys %{$self->{OK_PARAMS}} ;
     croak "bad args"
-        if scalar(@validargs) != 5 ; 
+        if scalar(@validargs) != 4 ; 
+
 
     my ${Name}              = $$ref{CONDITIONNAME};
     my ${TestActionName}    = $$ref{CONDITIONTESTACTIONNAME};
     my ${Enabled}           = $$ref{CONDITIONENABLED};
-    my ${ResultSet}         = $$ref{CONDITIONRESULTSET};
-    my ${RowCount}          = $$ref{CONDITIONROWCOUNT};
-
+    my ${ExecutionTime}     = $$ref{CONDITIONEXECUTIONTIME};
 
     $self->conditionName(${Name}) ; 
     $self->conditionTestActionName(${TestActionName}) ; 
     $self->conditionEnabled(${Enabled}) ; 
-    $self->conditionResultSet(${ResultSet}) ; 
-    $self->conditionRowCount(${RowCount}) ; 
+    $self->conditionExecutionTime(${ExecutionTime}) ; 
 
     return ;
+
     
 }
 
+
+
 sub testConditionType {
-    return 'RowCount' ;
+    return 'ExecutionTime' ;
 }
 
 sub testConditionMSType {
-    return 'RowCountCondition' ;
+    return 'ExecutionTimeCondition' ;
 }
 
 
@@ -84,29 +85,13 @@ sub check {
     local $_                = undef ;
     my $self                = shift ;
     my $ra_res              = shift ;
-
-#warn Dumper $ra_res ;
-    if ( $self->conditionISEnabled() ) {
-        if ( scalar @{$ra_res->[$self->conditionResultSet()-1] } == $self->conditionRowCount() ) {
-            return scalar 1 ; 
-        }
-        else {
-say  'Condition is ', $self->conditionName() ;
-say  'value    is  ', '"'.scalar(@{$ra_res->[$self->conditionResultSet()-1]}).'"'  ;
-say  'expected was ', '"'.$self->conditionRowCount().'"'  ;
-            return scalar 0 ; 
-        }
-    } 
-    else {
-        return scalar -1 ;
-    }
+    return scalar 1 ; 
 }
+
 
 1 ;
 
 __DATA__
-
-
 
 
 =head1 SYNOPSIS
@@ -131,7 +116,7 @@ automatically be notified of progress on your bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc VSGDR::UnitTest::TestSet::Test::TestCondition::RowCount
+    perldoc VSGDR::UnitTest::TestSet::Test::TestCondition::ExecutionTime
 
 
 You can also look for information at:
@@ -173,4 +158,4 @@ See http://dev.perl.org/licenses/ for more information.
 
 =cut
 
-1; # End of VSGDR::UnitTest::TestSet::Test::TestCondition::RowCount
+1; # End of VSGDR::UnitTest::TestSet::Test::TestCondition::ExecutionTime

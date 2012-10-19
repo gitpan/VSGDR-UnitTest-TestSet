@@ -1,4 +1,4 @@
-package VSGDR::UnitTest::TestSet::Test::TestCondition::EmptyResultSet;
+package VSGDR::UnitTest::TestSet::Test::TestCondition::Checksum;
 
 use 5.010;
 use strict;
@@ -6,7 +6,7 @@ use warnings;
 
 =head1 NAME
 
-VSGDR::UnitTest::TestSet::Test::TestCondition::EmptyResultSet - The great new VSGDR::UnitTest::TestSet::Test::TestCondition::EmptyResultSet!
+VSGDR::UnitTest::TestSet::Test::TestCondition::Checksum - Sealed class for Microsoft Visual Studio Database Edition UnitTest Utility Suite by Ded MedVed
 
 =head1 VERSION
 
@@ -24,21 +24,19 @@ BEGIN {
 use Data::Dumper ;
 use Carp ;
 
-our $VERSION    = "0.02";
+our $VERSION    = "0.01";
 use vars qw($AUTOLOAD %ok_field);
-
-
 
 # Authorize constructor hash fields
 my %ok_params = () ;
-for my $attr ( qw( CONDITIONTESTACTIONNAME CONDITIONNAME CONDITIONENABLED CONDITIONRESULTSET) ) { $ok_params{$attr}++; } 
+for my $attr ( qw(CONDITIONTESTACTIONNAME CONDITIONNAME CONDITIONENABLED CONDITIONCHECKSUM) ) { $ok_params{$attr}++; } 
 my %ok_fields       = () ;
 my %ok_fields_type  = () ;
-
 # Authorize attribute fields
-for my $attr ( qw(conditionTestActionName conditionName conditionEnabled conditionResultSet) ) { $ok_fields{$attr}++; $ok_fields_type{$attr} = 'plain'; } 
+for my $attr ( qw(conditionTestActionName conditionName conditionEnabled conditionChecksum) )  { $ok_fields{$attr}++; $ok_fields_type{$attr} = 'plain'; } 
 $ok_fields_type{conditionName}      = 'quoted';  
 $ok_fields_type{conditionEnabled}   = 'bool';  
+
 
 sub _init {
 
@@ -51,7 +49,6 @@ sub _init {
     $self->{OK_PARAMS}      = \%ok_params ;
     $self->{OK_FIELDS}      = \%ok_fields ;
     $self->{OK_FIELDS_TYPE} = \%ok_fields_type ;
-
     my @validargs           = grep { exists($$ref{$_}) } keys %{$self->{OK_PARAMS}} ;
     croak "bad args"
         if scalar(@validargs) != 4 ; 
@@ -59,23 +56,26 @@ sub _init {
     my ${Name}              = $$ref{CONDITIONNAME};
     my ${TestActionName}    = $$ref{CONDITIONTESTACTIONNAME};
     my ${Enabled}           = $$ref{CONDITIONENABLED};
-    my ${ResultSet}         = $$ref{CONDITIONRESULTSET};
+    my ${Checksum}          = $$ref{CONDITIONCHECKSUM};
+
 
     $self->conditionName(${Name}) ; 
     $self->conditionTestActionName(${TestActionName}) ; 
     $self->conditionEnabled(${Enabled}) ; 
-    $self->conditionResultSet(${ResultSet}) ; 
+    $self->conditionChecksum(${Checksum}) ; 
 
+  
     return ;
     
 }
 
 sub testConditionType {
-    return 'EmptyResultSet' ;
+    my $self    = shift;
+    return 'Checksum' ;
 }
 
 sub testConditionMSType {
-    return 'EmptyResultSetCondition' ;
+    return 'ChecksumCondition' ;
 }
 
 sub check {
@@ -83,25 +83,20 @@ sub check {
     my $self                = shift ;
     my $ra_res              = shift ;
 
+#warn Dumper $ra_res ;
+
     if ( $self->conditionISEnabled() ) {
-        if ( scalar(@{$ra_res->[$self->conditionResultSet()-1]})){
-say  'Condition is ', $self->conditionName() ;
-say  'value    is  ', '"'.scalar(@{$ra_res->[$self->conditionResultSet()-1]}).'"'  ;
-say  'expected was ', '"0"'  ;
-            return scalar 0 ; 
-        }
-        else {
-            return scalar 1 ; 
-        }
-    } 
+         return scalar 1 ; 
+     }
     else {
-        return scalar -1 ;
+        return scalar -1 ; 
     }
-}
+} 
 
 1 ;
 
 __DATA__
+
 
 
 =head1 SYNOPSIS
@@ -126,7 +121,7 @@ automatically be notified of progress on your bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc VSGDR::UnitTest::TestSet::Test::TestCondition::EmptyResultSet
+    perldoc VSGDR::UnitTest::TestSet::Test::TestCondition::Checksum
 
 
 You can also look for information at:
@@ -168,4 +163,4 @@ See http://dev.perl.org/licenses/ for more information.
 
 =cut
 
-1; # End of VSGDR::UnitTest::TestSet::Test::TestCondition::EmptyResultSet
+1; # End of VSGDR::UnitTest::TestSet::Test::TestCondition::Checksum

@@ -6,7 +6,7 @@ use warnings;
 
 =head1 NAME
 
-VSGDR::UnitTest::TestSet::Resx - The great new VSGDR::UnitTest::TestSet::Resx!
+VSGDR::UnitTest::TestSet::Resx - Sealed class for Microsoft Visual Studio Database Edition UnitTest Utility Suite by Ded MedVed
 
 =head1 VERSION
 

@@ -1,4 +1,4 @@
-package VSGDR::UnitTest::TestSet::Test::TestCondition::NotEmptyResultSet;
+package VSGDR::UnitTest::TestSet::Test::TestCondition::EmptyResultSet;
 
 use 5.010;
 use strict;
@@ -6,7 +6,7 @@ use warnings;
 
 =head1 NAME
 
-VSGDR::UnitTest::TestSet::Test::TestCondition::NotEmptyResultSet - The great new VSGDR::UnitTest::TestSet::Test::TestCondition::NotEmptyResultSet!
+VSGDR::UnitTest::TestSet::Test::TestCondition::EmptyResultSet - Sealed class for Microsoft Visual Studio Database Edition UnitTest Utility Suite by Ded MedVed
 
 =head1 VERSION
 
@@ -16,12 +16,10 @@ Version 1.00
 
 our $VERSION = '1.00';
 
-
 use parent qw(VSGDR::UnitTest::TestSet::Test::TestCondition) ;
 BEGIN {
 *AUTOLOAD = \&VSGDR::UnitTest::TestSet::Test::TestCondition::AUTOLOAD ;
 }
-
 
 use Data::Dumper ;
 use Carp ;
@@ -29,11 +27,14 @@ use Carp ;
 our $VERSION    = "0.02";
 use vars qw($AUTOLOAD %ok_field);
 
+
+
 # Authorize constructor hash fields
 my %ok_params = () ;
-for my $attr ( qw(CONDITIONTESTACTIONNAME CONDITIONNAME CONDITIONENABLED CONDITIONRESULTSET) ) { $ok_params{$attr}++; } 
+for my $attr ( qw( CONDITIONTESTACTIONNAME CONDITIONNAME CONDITIONENABLED CONDITIONRESULTSET) ) { $ok_params{$attr}++; } 
 my %ok_fields       = () ;
 my %ok_fields_type  = () ;
+
 # Authorize attribute fields
 for my $attr ( qw(conditionTestActionName conditionName conditionEnabled conditionResultSet) ) { $ok_fields{$attr}++; $ok_fields_type{$attr} = 'plain'; } 
 $ok_fields_type{conditionName}      = 'quoted';  
@@ -64,17 +65,17 @@ sub _init {
     $self->conditionTestActionName(${TestActionName}) ; 
     $self->conditionEnabled(${Enabled}) ; 
     $self->conditionResultSet(${ResultSet}) ; 
-    
+
     return ;
     
 }
 
 sub testConditionType {
-    return 'NotEmptyResultSet' ;
+    return 'EmptyResultSet' ;
 }
 
 sub testConditionMSType {
-    return 'NotEmptyResultSetCondition' ;
+    return 'EmptyResultSetCondition' ;
 }
 
 sub check {
@@ -83,30 +84,24 @@ sub check {
     my $ra_res              = shift ;
 
     if ( $self->conditionISEnabled() ) {
-        if ( scalar @{$ra_res->[$self->conditionResultSet()-1] } ){
-            return scalar 1 ; 
-        }
-        else {
+        if ( scalar(@{$ra_res->[$self->conditionResultSet()-1]})){
 say  'Condition is ', $self->conditionName() ;
 say  'value    is  ', '"'.scalar(@{$ra_res->[$self->conditionResultSet()-1]}).'"'  ;
-say  'expected was > ', '"0"'  ;
+say  'expected was ', '"0"'  ;
             return scalar 0 ; 
+        }
+        else {
+            return scalar 1 ; 
         }
     } 
     else {
         return scalar -1 ;
     }
-    
 }
-
-
-
-
 
 1 ;
 
 __DATA__
-
 
 
 =head1 SYNOPSIS
@@ -131,7 +126,7 @@ automatically be notified of progress on your bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc VSGDR::UnitTest::TestSet::Test::TestCondition::NotEmptyResultSet
+    perldoc VSGDR::UnitTest::TestSet::Test::TestCondition::EmptyResultSet
 
 
 You can also look for information at:
@@ -173,4 +168,4 @@ See http://dev.perl.org/licenses/ for more information.
 
 =cut
 
-1; # End of VSGDR::UnitTest::TestSet::Test::TestCondition::NotEmptyResultSet
+1; # End of VSGDR::UnitTest::TestSet::Test::TestCondition::EmptyResultSet

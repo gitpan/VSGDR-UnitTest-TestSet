@@ -1,4 +1,4 @@
-package VSGDR::UnitTest::TestSet::Test::TestCondition::ExpectedSchema;
+package VSGDR::UnitTest::TestSet::Test::TestCondition::Inconclusive;
 
 use 5.010;
 use strict;
@@ -6,7 +6,7 @@ use warnings;
 
 =head1 NAME
 
-VSGDR::UnitTest::TestSet::Test::TestCondition::ExpectedSchema - The great new VSGDR::UnitTest::TestSet::Test::TestCondition::ExpectedSchema!
+VSGDR::UnitTest::TestSet::Test::TestCondition::Inconclusive - Sealed class for Microsoft Visual Studio Database Edition UnitTest Utility Suite by Ded MedVed
 
 =head1 VERSION
 
@@ -28,17 +28,17 @@ use Carp ;
 our $VERSION    = "0.01";
 use vars qw($AUTOLOAD %ok_field);
 
+
+
 # Authorize constructor hash fields
 my %ok_params = () ;
-for my $attr ( qw(CONDITIONTESTACTIONNAME CONDITIONNAME CONDITIONENABLED CONDITIONVERBOSE CONDITIONAPPLYRESOURCES) ) { $ok_params{$attr}++; } 
+for my $attr ( qw(CONDITIONTESTACTIONNAME CONDITIONNAME CONDITIONENABLED ) ) { $ok_params{$attr}++; } 
 my %ok_fields       = () ;
 my %ok_fields_type  = () ;
 # Authorize attribute fields
-for my $attr ( qw(conditionTestActionName conditionName conditionEnabled conditionVerbose conditionApplyResources) )  { $ok_fields{$attr}++; $ok_fields_type{$attr} = 'plain'; } 
-$ok_fields_type{conditionName}                  = 'quoted';  
-$ok_fields_type{conditionEnabled}               = 'bool';  
-$ok_fields_type{conditionApplyResources}        = 'literalcode';  
-
+for my $attr ( qw(conditionTestActionName conditionName conditionEnabled ) ) { $ok_fields{$attr}++; $ok_fields_type{$attr} = 'plain'; } 
+$ok_fields_type{conditionName}      = 'quoted';  
+$ok_fields_type{conditionEnabled}   = 'bool';  
 
 sub _init {
 
@@ -51,65 +51,38 @@ sub _init {
     $self->{OK_PARAMS}      = \%ok_params ;
     $self->{OK_FIELDS}      = \%ok_fields ;
     $self->{OK_FIELDS_TYPE} = \%ok_fields_type ;
+    
     my @validargs           = grep { exists($$ref{$_}) } keys %{$self->{OK_PARAMS}} ;
-#warn Dumper @validargs;    
+
     croak "bad args"
-        if scalar(@validargs) != 4 ; 
-#warn Dumper @validargs;    
+        if scalar(@validargs) != 3 ; 
+
     my ${Name}              = $$ref{CONDITIONNAME};
     my ${TestActionName}    = $$ref{CONDITIONTESTACTIONNAME};
     my ${Enabled}           = $$ref{CONDITIONENABLED};
-    my ${Verbose}           = $$ref{CONDITIONVERBOSE};
 
     $self->conditionName(${Name}) ; 
     $self->conditionTestActionName(${TestActionName}) ; 
     $self->conditionEnabled(${Enabled}) ; 
-    $self->conditionVerbose(${Verbose}) ; 
 
-  
     return ;
     
 }
 
 sub testConditionType {
-    my $self    = shift;
-    return 'ExpectedSchema' ;
+    return 'Inconclusive' ;
 }
 
 sub testConditionMSType {
-    return 'ExpectedSchemaCondition' ;
+    return 'InconclusiveCondition' ;
 }
 
 sub check {
     local $_                = undef ;
     my $self                = shift ;
     my $ra_res              = shift ;
-
-#warn Dumper $ra_res ;
-
-    if ( $self->conditionISEnabled() ) {
-#say 'Condition is ', $self->conditionName() ;
-#say 'value    is  ', '"'.$ra_res->[$self->conditionResultSet()-1]->[$self->conditionRowNumber()-1]->[$self->conditionColumnNumber()-1].'"'  ;
-#say 'expected was ', $self->conditionExpectedValue()  ;
-        return scalar 1 ; 
-    }
-    else {
-#say 'Condition ', $self->conditionName(), ' is disabled' ;
-        return scalar -1 ; 
-    }
-} 
-
-## local override for unstorable attribute - when called upon - just derive it.
-## luckily we can get away with this it's the same for vb and c#
-
-sub conditionApplyResources {
-    local $_                = undef ;
-    my $self                = shift ;
-    my $ra_res              = shift ;
-    return "resources.ApplyResources(" . $self->conditionName() . ', "' . $self->conditionName() . '")' ;
+    return scalar -1 ; 
 }
-
-
 
 
 1 ;
@@ -141,7 +114,7 @@ automatically be notified of progress on your bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc VSGDR::UnitTest::TestSet::Test::TestCondition::ExpectedSchema
+    perldoc VSGDR::UnitTest::TestSet::Test::TestCondition::Inconclusive
 
 
 You can also look for information at:
@@ -183,4 +156,4 @@ See http://dev.perl.org/licenses/ for more information.
 
 =cut
 
-1; # End of VSGDR::UnitTest::TestSet::Test::TestCondition::ExpectedSchema
+1; # End of VSGDR::UnitTest::TestSet::Test::TestCondition::Inconclusive

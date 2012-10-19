@@ -6,7 +6,7 @@ use warnings;
 
 =head1 NAME
 
-VSGDR::UnitTest::TestSet::Test::TestCondition - The great new VSGDR::UnitTest::TestSet::Test::TestCondition!
+VSGDR::UnitTest::TestSet::Test::TestCondition - Sealed class for Microsoft Visual Studio Database Edition UnitTest Utility Suite by Ded MedVed
 
 =head1 VERSION
 

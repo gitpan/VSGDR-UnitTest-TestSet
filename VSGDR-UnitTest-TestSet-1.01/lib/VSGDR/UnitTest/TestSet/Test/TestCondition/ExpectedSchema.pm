@@ -1,4 +1,4 @@
-package VSGDR::UnitTest::TestSet::Test::TestCondition::ExecutionTime;
+package VSGDR::UnitTest::TestSet::Test::TestCondition::ExpectedSchema;
 
 use 5.010;
 use strict;
@@ -6,7 +6,7 @@ use warnings;
 
 =head1 NAME
 
-VSGDR::UnitTest::TestSet::Test::TestCondition::ExecutionTime - The great new VSGDR::UnitTest::TestSet::Test::TestCondition::ExecutionTime!
+VSGDR::UnitTest::TestSet::Test::TestCondition::ExpectedSchema - Sealed class for Microsoft Visual Studio Database Edition UnitTest Utility Suite by Ded MedVed
 
 =head1 VERSION
 
@@ -16,6 +16,7 @@ Version 1.00
 
 our $VERSION = '1.00';
 
+
 use parent qw(VSGDR::UnitTest::TestSet::Test::TestCondition) ;
 BEGIN {
 *AUTOLOAD = \&VSGDR::UnitTest::TestSet::Test::TestCondition::AUTOLOAD ;
@@ -24,19 +25,20 @@ BEGIN {
 use Data::Dumper ;
 use Carp ;
 
-our $VERSION    = "0.02";
+our $VERSION    = "0.01";
 use vars qw($AUTOLOAD %ok_field);
 
 # Authorize constructor hash fields
 my %ok_params = () ;
-for my $attr ( qw(CONDITIONTESTACTIONNAME CONDITIONNAME CONDITIONENABLED CONDITIONEXECUTIONTIME) ) { $ok_params{$attr}++; } 
+for my $attr ( qw(CONDITIONTESTACTIONNAME CONDITIONNAME CONDITIONENABLED CONDITIONVERBOSE CONDITIONAPPLYRESOURCES) ) { $ok_params{$attr}++; } 
 my %ok_fields       = () ;
 my %ok_fields_type  = () ;
-
 # Authorize attribute fields
-for my $attr ( qw(conditionTestActionName conditionName conditionEnabled conditionExecutionTime ) ) { $ok_fields{$attr}++; $ok_fields_type{$attr} = 'plain'; } 
-$ok_fields_type{conditionName}      = 'quoted';  
-$ok_fields_type{conditionEnabled}   = 'bool';  
+for my $attr ( qw(conditionTestActionName conditionName conditionEnabled conditionVerbose conditionApplyResources) )  { $ok_fields{$attr}++; $ok_fields_type{$attr} = 'plain'; } 
+$ok_fields_type{conditionName}                  = 'quoted';  
+$ok_fields_type{conditionEnabled}               = 'bool';  
+$ok_fields_type{conditionApplyResources}        = 'literalcode';  
+
 
 sub _init {
 
@@ -49,49 +51,72 @@ sub _init {
     $self->{OK_PARAMS}      = \%ok_params ;
     $self->{OK_FIELDS}      = \%ok_fields ;
     $self->{OK_FIELDS_TYPE} = \%ok_fields_type ;
-
     my @validargs           = grep { exists($$ref{$_}) } keys %{$self->{OK_PARAMS}} ;
+#warn Dumper @validargs;    
     croak "bad args"
         if scalar(@validargs) != 4 ; 
-
-
+#warn Dumper @validargs;    
     my ${Name}              = $$ref{CONDITIONNAME};
     my ${TestActionName}    = $$ref{CONDITIONTESTACTIONNAME};
     my ${Enabled}           = $$ref{CONDITIONENABLED};
-    my ${ExecutionTime}     = $$ref{CONDITIONEXECUTIONTIME};
+    my ${Verbose}           = $$ref{CONDITIONVERBOSE};
 
     $self->conditionName(${Name}) ; 
     $self->conditionTestActionName(${TestActionName}) ; 
     $self->conditionEnabled(${Enabled}) ; 
-    $self->conditionExecutionTime(${ExecutionTime}) ; 
+    $self->conditionVerbose(${Verbose}) ; 
 
+  
     return ;
-
     
 }
 
-
-
 sub testConditionType {
-    return 'ExecutionTime' ;
+    my $self    = shift;
+    return 'ExpectedSchema' ;
 }
 
 sub testConditionMSType {
-    return 'ExecutionTimeCondition' ;
+    return 'ExpectedSchemaCondition' ;
 }
-
 
 sub check {
     local $_                = undef ;
     my $self                = shift ;
     my $ra_res              = shift ;
-    return scalar 1 ; 
+
+#warn Dumper $ra_res ;
+
+    if ( $self->conditionISEnabled() ) {
+#say 'Condition is ', $self->conditionName() ;
+#say 'value    is  ', '"'.$ra_res->[$self->conditionResultSet()-1]->[$self->conditionRowNumber()-1]->[$self->conditionColumnNumber()-1].'"'  ;
+#say 'expected was ', $self->conditionExpectedValue()  ;
+        return scalar 1 ; 
+    }
+    else {
+#say 'Condition ', $self->conditionName(), ' is disabled' ;
+        return scalar -1 ; 
+    }
+} 
+
+## local override for unstorable attribute - when called upon - just derive it.
+## luckily we can get away with this it's the same for vb and c#
+
+sub conditionApplyResources {
+    local $_                = undef ;
+    my $self                = shift ;
+    my $ra_res              = shift ;
+    return "resources.ApplyResources(" . $self->conditionName() . ', "' . $self->conditionName() . '")' ;
 }
+
+
 
 
 1 ;
 
 __DATA__
+
+
 
 
 =head1 SYNOPSIS
@@ -116,7 +141,7 @@ automatically be notified of progress on your bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc VSGDR::UnitTest::TestSet::Test::TestCondition::ExecutionTime
+    perldoc VSGDR::UnitTest::TestSet::Test::TestCondition::ExpectedSchema
 
 
 You can also look for information at:
@@ -158,4 +183,4 @@ See http://dev.perl.org/licenses/ for more information.
 
 =cut
 
-1; # End of VSGDR::UnitTest::TestSet::Test::TestCondition::ExecutionTime
+1; # End of VSGDR::UnitTest::TestSet::Test::TestCondition::ExpectedSchema
