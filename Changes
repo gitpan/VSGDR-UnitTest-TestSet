@@ -6,4 +6,6 @@ Revision history for VSGDR-UnitTest-TestSet
         Second version, released on an unsuspecting world.  Still Broken
 1.02    22/10/2012
         First version to include scripts and SQLServer modules.
+1.03    22/10/2012
+        Fixed VERSION declarations and pod tests..
 

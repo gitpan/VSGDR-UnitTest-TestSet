@@ -24,7 +24,7 @@ BEGIN {
 use Data::Dumper ;
 use Carp ;
 
-our $VERSION    = "0.02";
+
 use vars qw($AUTOLOAD %ok_field);
 
 # Authorize constructor hash fields

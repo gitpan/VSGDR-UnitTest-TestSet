@@ -14,7 +14,7 @@ Version 1.02
 
 =cut
 
-our $VERSION = '1.02';
+our $VERSION = '1.03';
 
 
 use autodie qw(:all);
@@ -29,7 +29,6 @@ use Clone;
 
 use base qw(Clone) ;
 
-our $VERSION    = "0.01";
 our $AUTOLOAD ;
 my %ok_field ;
 # Authorize four attribute fields

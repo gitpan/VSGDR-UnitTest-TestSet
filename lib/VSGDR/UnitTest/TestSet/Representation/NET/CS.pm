@@ -32,7 +32,7 @@ use VSGDR::UnitTest::TestSet::Representation;
 use VSGDR::UnitTest::TestSet::Representation::NET;
 
 our %Globals ; ## temp
-our $VERSION    = "0.99";
+
 
 
 ##$::RD_HINT=1;

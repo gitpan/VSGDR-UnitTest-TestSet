@@ -509,9 +509,6 @@ test file if not compatible across files.)
 
 
 
-=back
-
-
 =item  --[no]Debug
 
 [Don't] print failing test SQL

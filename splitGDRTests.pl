@@ -112,8 +112,6 @@ Specify input file
     repeatable
 
 
-=back
-
 =item  -o[ut][file]    [=]<file>
 
 Specify output file
@@ -124,12 +122,11 @@ Specify output file
 
 =back
 
-
-
 =head1 OPTIONS
 
 =over
 
+=back
 
 =head1 AUTHOR
 

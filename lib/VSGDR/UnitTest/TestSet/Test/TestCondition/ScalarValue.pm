@@ -25,7 +25,7 @@ BEGIN {
 use Data::Dumper ;
 use Carp ;
 
-our $VERSION    = "0.04";
+
 use vars qw($AUTOLOAD %ok_field);
 
 #TODO 1: Sort out value testing you damn fool.

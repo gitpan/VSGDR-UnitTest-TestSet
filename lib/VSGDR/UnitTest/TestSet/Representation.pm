@@ -27,7 +27,6 @@ use IO::File;
 use Data::Dumper ;
 use Carp ;
 
-our $VERSION    = "0.01";
 use vars qw($AUTOLOAD );
 
 my %Types = ('XML'     => 1

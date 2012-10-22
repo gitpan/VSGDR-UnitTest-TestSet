@@ -23,7 +23,7 @@ our $VERSION = '1.00';
 use Data::Dumper ;
 use Carp ;
 
-our $VERSION    = "0.01";
+
 use vars qw($AUTOLOAD );
 
 my %Types = (ScalarValue=> 1

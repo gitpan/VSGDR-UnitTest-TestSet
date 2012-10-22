@@ -32,7 +32,7 @@ use Data::Dumper ;
 use autodie ;
 
 our %Globals ; ## temp
-our $VERSION    = "0.01";
+
 
 
 #TODO:  1. This needs abstracting away - $condition->testConditionAttributeType(${conditionAttribute}) eq 'quoted' ne 'literalcode'

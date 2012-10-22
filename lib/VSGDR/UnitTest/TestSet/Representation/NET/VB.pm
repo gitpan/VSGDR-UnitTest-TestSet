@@ -34,7 +34,7 @@ use VSGDR::UnitTest::TestSet::Representation;
 use VSGDR::UnitTest::TestSet::Representation::NET;
 
 #my  %Globals ; ## temp
-our $VERSION    = "0.99";
+
 
 
 use Time::HiRes qw(usleep ualarm gettimeofday tv_interval);

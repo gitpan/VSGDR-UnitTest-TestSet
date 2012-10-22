@@ -25,7 +25,6 @@ use XML::Quote qw(:all);
 use Data::Dumper ;
 use Carp ;
 
-our $VERSION    = "0.01";
 use vars qw($AUTOLOAD);
 
 
