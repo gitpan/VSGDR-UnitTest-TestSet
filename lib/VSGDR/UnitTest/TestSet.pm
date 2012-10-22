@@ -10,11 +10,11 @@ VSGDR::UnitTest::TestSet - Sealed class for Microsoft Visual Studio Database Edi
 
 =head1 VERSION
 
-Version 1.01
+Version 1.02
 
 =cut
 
-our $VERSION = '1.01';
+our $VERSION = '1.02';
 
 
 use autodie qw(:all);
@@ -314,12 +314,12 @@ who are also comfortable using perl software from the command line.
 
 Support is given for VS2008 and VS2010.
 Full support is offered for:-
-	Scalar, EmptyResultSet, NotEmptyResultSet, RowCount conditions.
+    Scalar, EmptyResultSet, NotEmptyResultSet, RowCount conditions.
 Partial support for:-
-	ExecutionTime, ExpectedSchema, Inconclusive, Checksum conditions.
+    ExecutionTime, ExpectedSchema, Inconclusive, Checksum conditions.
 No support is offered for bespoke conditions, apart from what you can add yourself.
 No support is offered for any unit tests that have been manually edited to add code Attributes, or alter the transaction mode etc etc.
-	
+    
 The suite offers scripts to generate unit tests from sql scripts, merge unit test files, split apart unit test files, extract the sql from unit test files, delete
 tests from unit test files, disable test conditions, report over unit test files, and run unit test files, with better reporting of test failures
 than MSTest or Visual Studio. It can also translate unit test files from VB to C# and vice-versa, as well as to
