@@ -42,7 +42,7 @@ WriteMakefile(
         'Parse::RecDescent'         => 0,
         'Readonly'                  => 0,
         'Smart::Comments'           => 0,
-        'SpreadSheet::WriteExcel'   => 0,
+        'Spreadsheet::WriteExcel'   => 0,
         'Spreadsheet::ParseExcel'   => 0,
         'Storable'                  => 0,
         'Text::Diff'                => 0,
