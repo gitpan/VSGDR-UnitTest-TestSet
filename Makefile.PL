@@ -21,7 +21,6 @@ WriteMakefile(
                    "reportGDRTests.pl", 
                    "runGDRTests.pl", 
                    "splitGDRTests.pl", 
-                   "statGDRTests.pl", 
                    "trGDRTests.pl" 
                  ],
     PREREQ_PM => {
