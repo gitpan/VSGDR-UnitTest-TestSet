@@ -12,4 +12,6 @@ Revision history for VSGDR-UnitTest-TestSet
         Refixed Spreadsheet::WriteExcel dependency, and added minimal Pod to SqlServer::DataType module.
 1.05    23/10/2012
         Removed obsolete statGDRTests.pl.  Enhanced functionality is in reportGDRTests.pl.
+1.06    23/10/2012
+        Updated MANIFEST for 1.05
 
