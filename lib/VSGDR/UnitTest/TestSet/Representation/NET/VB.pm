@@ -10,11 +10,11 @@ VSGDR::UnitTest::TestSet::Representation::NET::VB - Sealed class for Microsoft V
 
 =head1 VERSION
 
-Version 1.00
+Version 1.01
 
 =cut
 
-our $VERSION = '1.00';
+our $VERSION = '1.01';
 
 
 use parent qw(VSGDR::UnitTest::TestSet::Representation::NET) ;
@@ -34,10 +34,6 @@ use VSGDR::UnitTest::TestSet::Representation;
 use VSGDR::UnitTest::TestSet::Representation::NET;
 
 #my  %Globals ; ## temp
-
-
-
-use Time::HiRes qw(usleep ualarm gettimeofday tv_interval);
 
 #use Smart::Comments ;
 

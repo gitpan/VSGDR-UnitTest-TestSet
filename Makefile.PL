@@ -45,7 +45,6 @@ WriteMakefile(
         'Spreadsheet::ParseExcel'   => 0,
         'Storable'                  => 0,
         'Text::Diff'                => 0,
-        'Time::HiRes'               => 0,
         'Try::Tiny'                 => 0,
         'XML::Quote'                => 0,
         'XML::Simple'               => 0,

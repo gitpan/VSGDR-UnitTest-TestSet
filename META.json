@@ -53,7 +53,6 @@
             "Storable" : "0",
             "Test::More" : "0",
             "Text::Diff" : "0",
-            "Time::HiRes" : "0",
             "Try::Tiny" : "0",
             "XML::Quote" : "0",
             "XML::Simple" : "0",
@@ -63,5 +62,5 @@
       }
    },
    "release_status" : "stable",
-   "version" : "1.07"
+   "version" : "1.08"
 }

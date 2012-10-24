@@ -16,5 +16,7 @@ Revision history for VSGDR-UnitTest-TestSet
         Updated MANIFEST for 1.05.
 1.07    24/10/2012
         Fixed duplicate declaration of $VERSION.
+1.07    24/10/2012
+	Removed obsolete dependency on Time::HiRes.
 
 
