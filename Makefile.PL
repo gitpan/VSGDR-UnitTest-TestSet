@@ -48,8 +48,9 @@ WriteMakefile(
         'Try::Tiny'                 => 0,
         'XML::Quote'                => 0,
         'XML::Simple'               => 0,
+        'autodie'                   => 0,
+        'indirect'                  => 0,
         'version'                   => 0,
-
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'VSGDR-UnitTest-TestSet-*' },
