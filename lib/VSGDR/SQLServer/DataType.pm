@@ -15,7 +15,7 @@ Version 1.00
 =cut
 
 our $VERSION = '1.00';
-
+use Carp;
 use parent qw(Clone);
 
 use overload        (
