@@ -24,5 +24,7 @@ Revision history for VSGDR-UnitTest-TestSet
 	Updated missing dependencies.
 1.11    24/10/2012
 	Missing use Carp added back.
+1.12    24/10/2012
+	Fix to VB Test Actions.
 
 

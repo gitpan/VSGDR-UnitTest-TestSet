@@ -10,11 +10,11 @@ VSGDR::UnitTest::TestSet::Representation::NET::VB - Sealed class for Microsoft V
 
 =head1 VERSION
 
-Version 1.01
+Version 1.02
 
 =cut
 
-our $VERSION = '1.01';
+our $VERSION = '1.02';
 
 
 use parent qw(VSGDR::UnitTest::TestSet::Representation::NET) ;
@@ -494,7 +494,7 @@ sub Footer {
     my $res = "" ;
               
     foreach my $test (@tests) {
-        $res .= "${p2}Private " . $test->testActionDataName() . " As DatabaseTestActions()\n";
+        $res .= "${p2}Private " . $test->testActionDataName() . " As DatabaseTestActions\n";
     }
 
 return <<"EOF";
