@@ -30,5 +30,7 @@ Revision history for VSGDR-UnitTest-TestSet
 	Fixed Representation::XLS.  Corrected typo in name of Spreadsheet::WriteExcel.
 1.14    04/12/2012
 	Fixed this file.
+1.15    04/12/2012
+	Added IPC::System::Simple as a prerequisite.
 
 

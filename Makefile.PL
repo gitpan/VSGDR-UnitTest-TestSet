@@ -35,6 +35,7 @@ WriteMakefile(
         'File::Basename'            => 0,
         'Getopt::Euclid'            => 0,
         'IO::File'                  => 0,
+        'IPC::System::Simple'       => 0,
         'List::MoreUtils'           => 0,
         'List::Util'                => 0,
         'Modern::Perl'              => 0,
