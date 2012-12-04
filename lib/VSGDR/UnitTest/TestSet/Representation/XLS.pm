@@ -10,11 +10,11 @@ VSGDR::UnitTest::TestSet::Representation::XLS - Sealed class for Microsoft Visua
 
 =head1 VERSION
 
-Version 1.00
+Version 1.01
 
 =cut
 
-our $VERSION = '1.00';
+our $VERSION = '1.01';
 
 
 use parent qw(VSGDR::UnitTest::TestSet::Representation) ;
@@ -23,7 +23,7 @@ use parent qw(VSGDR::UnitTest::TestSet::Representation) ;
 
 
 use English;
-use SpreadSheet::WriteExcel;
+use Spreadsheet::WriteExcel;
 use Spreadsheet::ParseExcel;
 use List::MoreUtils qw/:all/;
 
