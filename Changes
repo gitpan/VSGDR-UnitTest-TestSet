@@ -26,5 +26,9 @@ Revision history for VSGDR-UnitTest-TestSet
 	Missing use Carp added back.
 1.12    24/10/2012
 	Fix to VB Test Actions.
+1.13    04/12/2012
+	Fixed Representation::XLS.  Corrected typo in name of Spreadsheet::WriteExcel.
+1.14    04/12/2012
+	Fixed this file.
 
 
