@@ -32,5 +32,7 @@ Revision history for VSGDR-UnitTest-TestSet
 	Fixed this file.
 1.15    04/12/2012
 	Added IPC::System::Simple as a prerequisite.
+1.16    12/12/2012
+	Expanded the README doc to give a flavour of how to use the main utility scripts.
 
 
