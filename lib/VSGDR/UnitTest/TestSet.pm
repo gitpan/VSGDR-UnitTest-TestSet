@@ -10,11 +10,11 @@ VSGDR::UnitTest::TestSet - Sealed class for Microsoft Visual Studio Database Edi
 
 =head1 VERSION
 
-Version 1.17
+Version 1.18
 
 =cut
 
-our $VERSION = '1.17';
+our $VERSION = '1.18';
 
 
 use autodie qw(:all);
@@ -302,87 +302,3 @@ sub AUTOLOAD {
 __DATA__
 
 
-
-=head1 SYNOPSIS
-
-Sealed unit.  No user serviceable parts.
-This module, and all sub-modules exist only to support the suite of applications packaged with it.
-The applications offer support to creators and maintainers of Microsoft Visual Studio
-Database Project Unit tests, particularly those frustrated by the VS interface to these tests,
-who are also comfortable using perl software from the command line.
-
-Support is given for VS2008 and VS2010.
-Full support is offered for:-
-    Scalar, EmptyResultSet, NotEmptyResultSet, RowCount conditions.
-Partial support for:-
-    ExecutionTime, ExpectedSchema, Inconclusive, Checksum conditions.
-No support is offered for bespoke conditions, apart from what you can add yourself.
-No support is offered for any unit tests that have been manually edited to add code Attributes, or alter the transaction mode etc etc.
-    
-The suite offers scripts to generate unit tests from sql scripts, merge unit test files, split apart unit test files, extract the sql from unit test files, delete
-tests from unit test files, disable test conditions, report over unit test files, and run unit test files, with better reporting of test failures
-than MSTest or Visual Studio. It can also translate unit test files from VB to C# and vice-versa, as well as to
-Excel Spreadsheet, or XML.
-The test runner cannot check ExecutionTime, ExpectedSchema, Inconclusive, Checksum conditions.
-This is because it is pure perl, and has no access to .NET internals, or the database connection code used by .NET.
-
-=head1 AUTHOR
-
-Ded MedVed, C<< <dedmedved at cpan.org> >>
-
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-vsgdr-unittest-testset at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=VSGDR-UnitTest-TestSet>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
-
-
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc VSGDR::UnitTest::TestSet
-
-
-You can also look for information at:
-
-=over 4
-
-=item * RT: CPAN's request tracker (report bugs here)
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=VSGDR-UnitTest-TestSet>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/VSGDR-UnitTest-TestSet>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/VSGDR-UnitTest-TestSet>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/VSGDR-UnitTest-TestSet/>
-
-=back
-
-
-=head1 ACKNOWLEDGEMENTS
-
-
-=head1 LICENSE AND COPYRIGHT
-
-Copyright 2012 Ded MedVed.
-
-This program is free software; you can redistribute it and/or modify it
-under the terms of either: the GNU General Public License as published
-by the Free Software Foundation; or the Artistic License.
-
-See http://dev.perl.org/licenses/ for more information.
-
-
-=cut
-
-1; # End of VSGDR::UnitTest::TestSet
