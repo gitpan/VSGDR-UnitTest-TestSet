@@ -4,15 +4,6 @@ use 5.010;
 use strict;
 use warnings;
 
-=head1 NAME
-
-VSGDR::UnitTest::TestSet::Representation::XML - Sealed class for Microsoft Visual Studio Database Edition UnitTest Utility Suite by Ded MedVed
-
-=head1 VERSION
-
-Version 1.00
-
-=cut
 
 our $VERSION = '1.00';
 
