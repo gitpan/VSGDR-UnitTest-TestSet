@@ -6,7 +6,7 @@ use 5.010;
 use autodie qw(:all);  
 no indirect ':fatal';
 
-use version ; our $VERSION = qv('1.0.4');
+use version ; our $VERSION = qv('1.0.5');
 
 use Carp;
 
@@ -45,10 +45,12 @@ my $inFile  = $opt_infile ;
 my $outFile = $opt_outfile ;
 
 my($infname, $directories, $insfx)      = fileparse($inFile, @validSuffixes);
+croak 'Invalid input file'   unless defined $insfx ;
 $insfx      = lc $insfx ;
 $insfx      = substr(lc $insfx,1) ;    
 
 my($outfname, $outdirectories, $outsfx) = fileparse($outFile, @validSuffixes);
+croak 'Invalid output file'   unless defined $outsfx ;
 $outsfx     = lc $outsfx ;
 $outsfx     = substr(lc $outsfx,1) ;    
 
@@ -132,7 +134,7 @@ delGDRTest.pl - Delete Tests from a GDR Unit Test file.
 
 =head1 VERSION
 
-1.0.4
+1.0.5
 
 
 

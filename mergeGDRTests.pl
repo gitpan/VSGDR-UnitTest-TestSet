@@ -20,7 +20,7 @@ use VSGDR::UnitTest::TestSet::Representation;
 use VSGDR::UnitTest::TestSet::Resx;
 
 use Getopt::Euclid qw( :vars<opt_> );
-use version ; our $VERSION = qv('1.2.6');
+use version ; our $VERSION = qv('1.2.7');
 use Data::Dumper;
 use File::Basename;
 use Smart::Comments;
@@ -38,6 +38,8 @@ my @infiles         = @opt_infile ;
 my $outFile         = $opt_outfile ;
 
 my($outfname, $outdirectories, $outsfx) = fileparse($outFile, @validSuffixes);
+croak 'Invalid output file'   unless defined $outsfx ;    
+
 $outsfx       = substr(lc $outsfx,1) ;
     
 my $outpfx          = $outfname;
@@ -229,7 +231,7 @@ mergeGDRTests.pl - Merge multiple GDR test files into one combined file.
 
 =head1 VERSION
 
-1.2.6
+1.2.7
 
 =head1 USAGE
 

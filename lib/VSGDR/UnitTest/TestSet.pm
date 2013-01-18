@@ -10,11 +10,11 @@ VSGDR::UnitTest::TestSet - Sealed class for Microsoft Visual Studio Database Edi
 
 =head1 VERSION
 
-Version 1.19
+Version 1.20
 
 =cut
 
-our $VERSION = '1.19';
+our $VERSION = '1.20';
 
 
 use autodie qw(:all);

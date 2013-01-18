@@ -8,7 +8,7 @@ use autodie qw(:all);
 no indirect ':fatal';
 
 use 5.010;
-use version ; our $VERSION = qv('1.0.0');
+use version ; our $VERSION = qv('1.0.1');
 
 use Carp;
 
@@ -31,9 +31,11 @@ my @validSuffixes       = map { '.'.$_ } keys %ValidParserMakeArgs ;
 
 
 my($infname, $indirectories, $insfx) = fileparse($opt_infile, @validSuffixes);
+croak 'Invalid input file'   unless defined $insfx ;            
 $insfx        = lc $insfx ;
 $insfx        = substr(lc $insfx,1) ;
 my($outfname, $outdirectories, $outsfx) = fileparse($opt_outfile, @validSuffixes);
+croak 'Invalid output file'   unless defined $outsfx ;            
 $outsfx       = lc $outsfx ;
 $outsfx       = substr(lc $outsfx,1) ;
     
@@ -92,7 +94,7 @@ creates a .vb file for each test in myTest.cs, each file name beginning with 'sp
 
 =head1 VERSION
 
-1.0.0
+1.0.1
 
 =head1 USAGE
 

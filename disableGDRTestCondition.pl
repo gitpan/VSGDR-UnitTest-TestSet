@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010;
 
-use version ; our $VERSION = qv('1.0.1');
+use version ; our $VERSION = qv('1.0.2');
 
 use autodie qw(:all);  
 no indirect ':fatal';
@@ -40,10 +40,12 @@ my $outFile = $opt_outfile ;
 
 (my $inpfx  = $inFile)  =~ s{^(.*)[.][^.]*$}{$1}smx;
 (my $insfx  = $inFile)  =~ s/^.*\.//g;
+croak 'Invalid input file'   unless defined $insfx ;
 $insfx      = lc $insfx ;
 
 (my $outpfx = $outFile) =~ s{^(.*)[.][^.]*$}{$1}smx;
 (my $outsfx = $outFile) =~ s/^.*\.//g;
+croak 'Invalid output file'   unless defined $outsfx ;
 $outsfx     = lc $outsfx ;
 
 my $outResxFile = "${outpfx}.resx" ;
@@ -188,7 +190,7 @@ disableGDRTestCondition.pl - Disable/Enable Test Conditions in a GDR Unit Test f
 
 =head1 VERSION
 
-1.0.1
+1.0.2
 
 
 

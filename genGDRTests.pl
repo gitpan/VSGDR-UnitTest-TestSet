@@ -30,7 +30,7 @@ use Try::Tiny;
 use Getopt::Euclid qw( :vars<opt_> );
 use Data::Dumper;
 
-use version ; our $VERSION = qv('1.2.8');
+use version ; our $VERSION = qv('1.2.9');
 
 my $opt_scalarValues        = !$opt_noscalarValues;
 my $opt_types               = !$opt_notypes;
@@ -103,10 +103,12 @@ for ( my $i=0; $i <= $#opt_infile; $i++ ) {  ## Process SQL scripts:::          
 
     my $infile    = $opt_infile[$i];
     my($infname, $indirectories, $insfx)    = fileparse($infile, @validSuffixes);
+    croak 'Invalid input file'   unless defined $insfx ;    
     $insfx        = lc $insfx ;
 
     my $outfile   = $opt_outfile[$i];
     my($outfname, $outdirectories, $outsfx) = fileparse($outfile, @validSuffixes);
+    croak 'Invalid output file'   unless defined $outsfx ;        
     $outsfx       = substr(lc $outsfx,1) ;
 
 #warn Dumper $insfx;
@@ -374,7 +376,7 @@ Test is run tw2ce to generate tests only for stable values. (Dates are still a p
 
 =head1 VERSION
 
-1.2.8
+1.2.9
 
 =head1 USAGE
 

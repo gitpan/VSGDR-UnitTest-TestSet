@@ -9,7 +9,7 @@ use 5.010;
 use Carp;
 
 use Getopt::Euclid qw( :vars<opt_> );
-use version ; our $VERSION = qv('1.0.2');
+use version ; our $VERSION = qv('1.0.3');
 
 use VSGDR::UnitTest::TestSet::Test;
 use VSGDR::UnitTest::TestSet::Test::TestCondition;
@@ -37,6 +37,7 @@ my $infile;
 $infile = $opt_infile;
 
 my($infname, $directories, $insfx)      = fileparse($infile , @validSuffixes);
+croak 'Invalid input file'   unless defined $insfx ;
 $insfx        = lc $insfx ;
 $insfx        = substr $insfx,1;
 #warn Dumper $insfx;
@@ -96,7 +97,7 @@ dumpGDRSql.pl - Dump Out the SQL for the Tests in a GDR Unit Test file.
 
 =head1 VERSION
 
-1.0.2
+1.0.3
 
 
 

@@ -2,7 +2,7 @@
 
 use Modern::Perl;
 use autodie qw(:all);
-use version ; our $VERSION = qv('1.0.1');
+use version ; our $VERSION = qv('1.0.2');
 
 use Carp;
 use Getopt::Euclid qw( :vars<opt_> );
@@ -58,6 +58,7 @@ my %Parsers         = () ;
         my %resSetNotEmptyEtc = () ;
 
         (my $insfx  = $testFile)  =~ s/^.*\.//g;
+        croak 'Invalid input file'   unless defined $insfx ;            
         $insfx  = lc $insfx ;
 
         die 'Invalid input file $testFile'  unless exists $ValidParserMakeArgs{$insfx} ;
@@ -392,7 +393,7 @@ reportGDRTests.pl - Reports on Test and Test Conditions within a GDR Unit Test f
 
 =head1 VERSION
 
-1.0.1
+1.0.2
 
 
 

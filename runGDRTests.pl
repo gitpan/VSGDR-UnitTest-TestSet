@@ -4,7 +4,7 @@ use Modern::Perl;
 use autodie qw(:all);
 no indirect ':fatal';
 
-use version ; our $VERSION = qv('1.3.6');
+use version ; our $VERSION = qv('1.3.7');
 
 use Try::Tiny ;
 
@@ -95,6 +95,7 @@ if ( ! $reInit && ( scalar @opt_infile > 1 )) {
     foreach my $infile (@opt_infile) {  ## Process SQL scripts:::                 done
 
         my($infname, $directories, $insfx) = fileparse($infile, @validSuffixes);
+        croak 'Invalid input file'   unless defined $insfx ;            
         $insfx      = lc $insfx ;
         
         croak 'Invalid input file'  unless exists $ValidParserMakeArgs{$insfx} ;
@@ -453,7 +454,7 @@ or for each test.
 
 =head1 VERSION
 
-1.3.6
+1.3.7
 
 =head1 USAGE
 
