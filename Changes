@@ -42,5 +42,7 @@ Revision history for VSGDR-UnitTest-TestSet
 	Reinstating broken changes.
 1.20    17/01/2013
 	Tightened checking of file suffixes in scripts.
+1.21    28/01/2013
+	Bug fix to DumpGDRSql.pl.  Print filehandle needs a block around it.
 
 

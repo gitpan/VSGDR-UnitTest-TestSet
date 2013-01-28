@@ -9,7 +9,7 @@ use 5.010;
 use Carp;
 
 use Getopt::Euclid qw( :vars<opt_> );
-use version ; our $VERSION = qv('1.0.3');
+use version ; our $VERSION = qv('1.0.4');
 
 use VSGDR::UnitTest::TestSet::Test;
 use VSGDR::UnitTest::TestSet::Test::TestCondition;
@@ -20,7 +20,7 @@ use VSGDR::UnitTest::TestSet::Resx;
 use Data::Dumper;
 
 use IO::File ;
-use Smart::Comments;
+#use Smart::Comments;
 use File::Basename;
 
 my %ValidParserMakeArgs = ( vb  => "NET::VB"
@@ -69,7 +69,7 @@ foreach my $test_action ( sort keys %{$rh_testScripts} ) { ### Dump test action 
     my $fh   = IO::File->new("> ${file}") ;
 
     if (defined ${fh} ) {
-        print ${fh} $rh_testScripts->{$test_action} ;
+        print {${fh}} $rh_testScripts->{$test_action} ;
         $fh->close;
     }
     else {
@@ -97,7 +97,7 @@ dumpGDRSql.pl - Dump Out the SQL for the Tests in a GDR Unit Test file.
 
 =head1 VERSION
 
-1.0.3
+1.0.4
 
 
 
