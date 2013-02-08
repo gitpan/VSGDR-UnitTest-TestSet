@@ -48,6 +48,7 @@ sub parse {
     $code       = $self->trim($code) ;
 
     my $res1    = $self->parser1()->start(${code});
+    croak "Failed to parse .Net representation" if ! defined $res1 ;
     my $globals = dclone($res1->{GLOBALS});
     my $res2    = $self->parser2()->start(${code},1,$globals);
 

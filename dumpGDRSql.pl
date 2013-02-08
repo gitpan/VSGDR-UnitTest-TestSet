@@ -9,7 +9,8 @@ use 5.010;
 use Carp;
 
 use Getopt::Euclid qw( :vars<opt_> );
-use version ; our $VERSION = qv('1.0.4');
+use List::MoreUtils qw{firstidx} ;
+use version ; our $VERSION = qv('1.0.5');
 
 use VSGDR::UnitTest::TestSet::Test;
 use VSGDR::UnitTest::TestSet::Test::TestCondition;
@@ -28,6 +29,10 @@ my %ValidParserMakeArgs = ( vb  => "NET::VB"
                           , xls => "XLS"
                           , xml => "XML"
                           ) ;
+my %ValidParserMakeArgs2 = ( vb  => "NET2::VB"
+                           , cs  => "NET2::CS"
+                           ) ;                          
+                          
 #my @validSuffixes       = keys %ValidParserMakeArgs ;
 my @validSuffixes       = map { '.'.$_ } keys %ValidParserMakeArgs ;
 
@@ -47,8 +52,12 @@ die 'Invalid input file'  unless exists $ValidParserMakeArgs{$insfx} ;
 
 ### Build parsers
 
-my %Parsers = () ;
-$Parsers{${insfx}}  = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${insfx}} } );
+my %Parsers            = () ;
+$Parsers{${insfx}}     = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${insfx}} } );
+# if input is in a .net language, add in a .net2 parser to the list
+if ( firstidx { $_ eq ${insfx} } ['cs','vb']  != -1 ) {
+    $Parsers{"${insfx}2"}  = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs2{${insfx}} } );
+}
 
 ### Deserialise tests 
 my $testSet         = $Parsers{$insfx}->deserialise($infile );
@@ -97,7 +106,7 @@ dumpGDRSql.pl - Dump Out the SQL for the Tests in a GDR Unit Test file.
 
 =head1 VERSION
 
-1.0.4
+1.0.5
 
 
 

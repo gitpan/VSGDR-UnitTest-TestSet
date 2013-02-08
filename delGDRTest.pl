@@ -6,7 +6,7 @@ use 5.010;
 use autodie qw(:all);  
 no indirect ':fatal';
 
-use version ; our $VERSION = qv('1.0.5');
+use version ; our $VERSION = qv('1.0.6');
 
 use Carp;
 
@@ -17,6 +17,7 @@ use VSGDR::UnitTest::TestSet::Representation;
 use VSGDR::UnitTest::TestSet::Resx;
 
 use Getopt::Euclid qw( :vars<opt_> );
+use List::MoreUtils qw{firstidx} ;
 use Data::Dumper;
 use Smart::Comments;
 use File::Basename;
@@ -26,6 +27,11 @@ my %ValidParserMakeArgs = ( vb  => "NET::VB"
                           , xls => "XLS"
                           , xml => "XML"
                           ) ;
+                          
+my %ValidParserMakeArgs2 = ( vb  => "NET2::VB"
+                           , cs  => "NET2::CS"
+                           ) ;                          
+                          
 #my @validSuffixes       = keys %ValidParserMakeArgs ;
 #my @validSuffixes       = map { '.'.$_ } keys %ValidParserMakeArgs ;
 my @validSuffixes       = map { '.'.$_ } keys %ValidParserMakeArgs ;
@@ -69,15 +75,37 @@ my $qr_testname  = qr{$opt_testname} ;
 ### build parsers
 
 
-my %Parsers = () ;
-$Parsers{${insfx}}  = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${insfx}}  } );
-$Parsers{${outsfx}} = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${outsfx}} } );
+my %Parsers            = () ;
+$Parsers{${insfx}}     = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${insfx}} } );
+# if input is in a .net language, add in a .net2 parser to the list
+if ( firstidx { $_ eq ${insfx} } ['cs','vb']  != -1 ) {
+    $Parsers{"${insfx}2"}  = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs2{${insfx}} } );
+}
+# if output is needed in ssdt unit test format  add in a .net2 parser to the list
+if ($version == 1)  {
+    $Parsers{${outsfx}}    = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${outsfx}} } );
+}
+else {
+    $Parsers{"${outsfx}2"} = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs2{${outsfx}} } );
+}
 
 ### build internal representations of input
 
 my $o_resx = VSGDR::UnitTest::TestSet::Resx->new() ;
 
-my $testSet         = $Parsers{$insfx}->deserialise($inFile);
+my $testSet         = undef ;
+eval {
+    $testSet         = $Parsers{$insfx}->deserialise($inFile);
+    } ;
+if ( ! defined $testSet && exists $Parsers{"${insfx}2"}) {
+    eval {
+        $testSet     = $Parsers{"${insfx}2"}->deserialise($inFile);
+        }
+}
+else {
+    croak 'Parsing failed.'; 
+}
+
 my $resx_data       = ''; { $/ = undef ; open ( my $fh, "<", "${infname}.resx"); $resx_data = <$fh> ; close $fh } ;
 my $rh_testScripts  = $o_resx->parse($resx_data) ; 
 
@@ -98,7 +126,14 @@ $filteredTestSet->cleanupConditions($testSet->cleanupConditions) ;
 $filteredTestSet->tests(\@filteredTests) ;
 
 unlink $outFile if -f $outFile ;
-$Parsers{$outsfx}->serialise($outFile,$filteredTestSet);
+
+if ($version == 1)  {
+    $Parsers{$outsfx}->serialise($outFile,$filteredTestSet);
+}
+else {
+    $Parsers{"${outsfx}2"}->serialise($outFile,$filteredTestSet);
+}
+
 
 my $o_resx_clone   = $o_resx->clone() ;
 
@@ -134,7 +169,7 @@ delGDRTest.pl - Delete Tests from a GDR Unit Test file.
 
 =head1 VERSION
 
-1.0.5
+1.0.6
 
 
 

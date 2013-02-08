@@ -28,9 +28,13 @@ use Try::Tiny;
 
 
 use Getopt::Euclid qw( :vars<opt_> );
+use List::MoreUtils qw{firstidx} ;
 use Data::Dumper;
 
-use version ; our $VERSION = qv('1.2.9');
+use version ; our $VERSION = qv('1.2.10');
+
+my $version             = $opt_version ;
+
 
 my $opt_scalarValues        = !$opt_noscalarValues;
 my $opt_types               = !$opt_notypes;
@@ -54,6 +58,10 @@ my %ValidParserMakeArgs = ( vb  => 'NET::VB'
                           , xls => 'XLS'
                           , xml => 'XML'
                           ) ;
+my %ValidParserMakeArgs2 = ( vb  => "NET2::VB"
+                           , cs  => "NET2::CS"
+                           ) ;                          
+                          
 my @validSuffixes       = map { '.'.$_ } keys %ValidParserMakeArgs ;
 
 ### Connect to database
@@ -97,8 +105,6 @@ $PreTestSQL             = 'exec sp_executesql N' . $PreTestSQL      if $PreTestS
 $PostTestSQL            = 'exec sp_executesql N' . $PostTestSQL     if $PostTestSQL;
 
 
-#exit ;
-
 for ( my $i=0; $i <= $#opt_infile; $i++ ) {  ## Process SQL scripts:::                 done
 
     my $infile    = $opt_infile[$i];
@@ -116,7 +122,13 @@ for ( my $i=0; $i <= $#opt_infile; $i++ ) {  ## Process SQL scripts:::          
 
     croak 'Invalid output file' unless exists $ValidParserMakeArgs{$outsfx} ;
 
-    $Parsers{${outsfx}} = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${outsfx}} } );
+    # if output is needed in ssdt unit test format  add in a .net2 parser to the list
+    if ($version == 1)  {
+        $Parsers{${outsfx}}    = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${outsfx}} } );
+    }
+    else {
+        $Parsers{"${outsfx}2"} = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs2{${outsfx}} } );
+    }
 
     my $testSet = VSGDR::UnitTest::TestSet->new( { NAMESPACE        => "${outfname}_ns"
                                                   , CLASSNAME        => "${outfname}_cls"
@@ -338,7 +350,14 @@ for ( my $i=0; $i <= $#opt_infile; $i++ ) {  ## Process SQL scripts:::          
     $o_resx->scripts(\%code) ;
     $o_resx->serialise($outfname.'.resx',$o_resx) ;
 
-    $Parsers{$outsfx}->serialise($opt_outfile[$i],$testSet);
+    if ($version == 1)  {
+        $Parsers{$outsfx}->serialise($opt_outfile[$i],$testSet);
+    }
+    else {
+        $Parsers{"${outsfx}2"}->serialise($opt_outfile[$i],$testSet);
+    }
+
+
 
 }
 
@@ -376,7 +395,7 @@ Test is run tw2ce to generate tests only for stable values. (Dates are still a p
 
 =head1 VERSION
 
-1.2.9
+1.2.10
 
 =head1 USAGE
 
@@ -412,10 +431,18 @@ Specify ODBC connection for Test script
 =back
 
 
-
 =head1 OPTIONS
 
 =over
+
+
+=item  -v[er][sion] [=]<outputversion>
+
+Output version type
+
+=for Euclid:
+    outputversion.type:    /[12]/
+    outputversion.default:  1
 
 =item  -pc[onnection] [=] <dsn>
 

@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 
-our $VERSION = '1.01';
+our $VERSION = '1.02';
 
 
 use parent qw(Clone) ;
@@ -24,6 +24,8 @@ my %Types = ('XML'     => 1
              ,'NET::CS' => 1
              ,'NET::VB' => 1
              ,'XLS'     => 1
+             ,'NET2::CS' => 1
+             ,'NET2::VB' => 1
              ) ;
 
 

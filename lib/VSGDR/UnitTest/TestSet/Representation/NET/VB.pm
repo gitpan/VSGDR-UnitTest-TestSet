@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 
-our $VERSION = '1.03';
+our $VERSION = '1.04';
 
 
 use parent qw(VSGDR::UnitTest::TestSet::Representation::NET) ;
@@ -780,3 +780,167 @@ __DATA__
         
     </SECTIONS>
 </ROOT>
+
+
+-- ssdt version of tests
+Imports System
+Imports System.Collections.Generic
+Imports System.Text
+Imports Microsoft.Data.Tools.Schema.Sql.UnitTesting
+Imports Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions
+Imports Microsoft.VisualStudio.TestTools.UnitTesting
+
+<TestClass()>
+Public Class SqlServerUnitTest1
+    Inherits SqlDatabaseTestClass
+
+    Sub New()
+        InitializeComponent()
+    End Sub
+
+    <TestInitialize()>
+    Public Sub TestInitialize()
+        InitializeTest()
+    End Sub
+
+    <TestCleanup()>
+    Public Sub TestCleanup()
+        CleanupTest()
+    End Sub
+
+    <TestMethod()>
+    Public Sub SqlTest1()
+        Dim testActions As SqlDatabaseTestActions = Me.SqlTest1Data
+        'Execute the pre-test script
+        '
+        System.Diagnostics.Trace.WriteLineIf(testActions.PretestAction IsNot Nothing, "Executing pre-test script...")
+        Dim pretestResults() As SqlExecutionResult = TestService.Execute(Me.PrivilegedContext, Me.PrivilegedContext, testActions.PretestAction)
+        'Execute the test script
+        '
+        System.Diagnostics.Trace.WriteLineIf(testActions.TestAction IsNot Nothing, "Executing test script...")
+        Dim testResults() As SqlExecutionResult = TestService.Execute(Me.ExecutionContext, Me.PrivilegedContext, testActions.TestAction)
+        'Execute the post-test script
+        '
+        System.Diagnostics.Trace.WriteLineIf(testActions.PosttestAction IsNot Nothing, "Executing post-test script...")
+        Dim posttestResults() As SqlExecutionResult = TestService.Execute(Me.PrivilegedContext, Me.PrivilegedContext, testActions.PosttestAction)
+    End Sub
+
+#Region "Designer support code"
+
+    'NOTE: The following procedure is required by the Designer
+    'It can be modified using the Designer.  
+    'Do not modify it using the code editor.
+    <System.Diagnostics.DebuggerStepThrough()>
+    Private Sub InitializeComponent()
+        Dim SqlTest1_TestAction As Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction
+        Dim InconclusiveCondition1 As Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.InconclusiveCondition
+        Dim ChecksumCondition1 As Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition
+        Dim EmptyResultSetCondition1 As Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition
+        Dim ExecutionTimeCondition1 As Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ExecutionTimeCondition
+        Dim ExpectedSchemaCondition1 As Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ExpectedSchemaCondition
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SqlServerUnitTest1))
+        Dim NotEmptyResultSetCondition1 As Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition
+        Dim RowCountCondition1 As Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition
+        Dim ScalarValueCondition1 As Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition
+        Me.SqlTest1Data = New Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions()
+        SqlTest1_TestAction = New Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction()
+        InconclusiveCondition1 = New Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.InconclusiveCondition()
+        ChecksumCondition1 = New Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition()
+        EmptyResultSetCondition1 = New Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition()
+        ExecutionTimeCondition1 = New Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ExecutionTimeCondition()
+        ExpectedSchemaCondition1 = New Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ExpectedSchemaCondition()
+        NotEmptyResultSetCondition1 = New Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition()
+        RowCountCondition1 = New Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition()
+        ScalarValueCondition1 = New Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition()
+        '
+        'SqlTest1Data
+        '
+        Me.SqlTest1Data.PosttestAction = Nothing
+        Me.SqlTest1Data.PretestAction = Nothing
+        Me.SqlTest1Data.TestAction = SqlTest1_TestAction
+        '
+        'SqlTest1_TestAction
+        '
+        SqlTest1_TestAction.Conditions.Add(InconclusiveCondition1)
+        SqlTest1_TestAction.Conditions.Add(ChecksumCondition1)
+        SqlTest1_TestAction.Conditions.Add(EmptyResultSetCondition1)
+        SqlTest1_TestAction.Conditions.Add(ExecutionTimeCondition1)
+        SqlTest1_TestAction.Conditions.Add(ExpectedSchemaCondition1)
+        SqlTest1_TestAction.Conditions.Add(NotEmptyResultSetCondition1)
+        SqlTest1_TestAction.Conditions.Add(RowCountCondition1)
+        SqlTest1_TestAction.Conditions.Add(ScalarValueCondition1)
+        resources.ApplyResources(SqlTest1_TestAction, "SqlTest1_TestAction")
+        '
+        'InconclusiveCondition1
+        '
+        InconclusiveCondition1.Enabled = True
+        InconclusiveCondition1.Name = "InconclusiveCondition1"
+        '
+        'ChecksumCondition1
+        '
+        ChecksumCondition1.Checksum = Nothing
+        ChecksumCondition1.Enabled = True
+        ChecksumCondition1.Name = "ChecksumCondition1"
+        '
+        'EmptyResultSetCondition1
+        '
+        EmptyResultSetCondition1.Enabled = True
+        EmptyResultSetCondition1.Name = "EmptyResultSetCondition1"
+        EmptyResultSetCondition1.ResultSet = 1
+        '
+        'ExecutionTimeCondition1
+        '
+        ExecutionTimeCondition1.Enabled = True
+        ExecutionTimeCondition1.ExecutionTime = System.TimeSpan.Parse("00:00:30")
+        ExecutionTimeCondition1.Name = "ExecutionTimeCondition1"
+        '
+        'ExpectedSchemaCondition1
+        '
+        ExpectedSchemaCondition1.Enabled = True
+        ExpectedSchemaCondition1.Name = "ExpectedSchemaCondition1"
+        resources.ApplyResources(ExpectedSchemaCondition1, "ExpectedSchemaCondition1")
+        ExpectedSchemaCondition1.Verbose = False
+        '
+        'NotEmptyResultSetCondition1
+        '
+        NotEmptyResultSetCondition1.Enabled = True
+        NotEmptyResultSetCondition1.Name = "NotEmptyResultSetCondition1"
+        NotEmptyResultSetCondition1.ResultSet = 1
+        '
+        'RowCountCondition1
+        '
+        RowCountCondition1.Enabled = True
+        RowCountCondition1.Name = "RowCountCondition1"
+        RowCountCondition1.ResultSet = 1
+        RowCountCondition1.RowCount = 0
+        '
+        'ScalarValueCondition1
+        '
+        ScalarValueCondition1.ColumnNumber = 1
+        ScalarValueCondition1.Enabled = True
+        ScalarValueCondition1.ExpectedValue = Nothing
+        ScalarValueCondition1.Name = "ScalarValueCondition1"
+        ScalarValueCondition1.NullExpected = True
+        ScalarValueCondition1.ResultSet = 1
+        ScalarValueCondition1.RowNumber = 1
+    End Sub
+
+#End Region
+
+#Region "Additional test attributes"
+    '
+    ' You can use the following additional attributes as you write your tests:
+    '
+    ' Use ClassInitialize to run code before running the first test in the class
+    ' <ClassInitialize()> Public Shared Sub MyClassInitialize(ByVal testContext As TestContext)
+    ' End Sub
+    '
+    ' Use ClassCleanup to run code after all tests in a class have run
+    ' <ClassCleanup()> Public Shared Sub MyClassCleanup()
+    ' End Sub
+    '
+#End Region
+
+    Private SqlTest1Data As SqlDatabaseTestActions
+End Class
+

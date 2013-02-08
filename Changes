@@ -44,5 +44,7 @@ Revision history for VSGDR-UnitTest-TestSet
 	Tightened checking of file suffixes in scripts.
 1.21    28/01/2013
 	Bug fix to DumpGDRSql.pl.  Print filehandle needs a block around it.
+1.22_01 29/01/2013
+	Sql Server Data Tools 2010 unit test support.  Main scripts working.  Bugs still in others.
 
 

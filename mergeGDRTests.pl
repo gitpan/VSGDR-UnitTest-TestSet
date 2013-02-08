@@ -20,7 +20,8 @@ use VSGDR::UnitTest::TestSet::Representation;
 use VSGDR::UnitTest::TestSet::Resx;
 
 use Getopt::Euclid qw( :vars<opt_> );
-use version ; our $VERSION = qv('1.2.7');
+use List::MoreUtils qw{firstidx} ;
+use version ; our $VERSION = qv('1.2.8');
 use Data::Dumper;
 use File::Basename;
 use Smart::Comments;
@@ -30,8 +31,15 @@ my %ValidParserMakeArgs = ( vb  => "NET::VB"
                           , xls => "XLS"
                           , xml => "XML"
                           ) ;
+my %ValidParserMakeArgs2 = ( vb  => "NET2::VB"
+                           , cs  => "NET2::CS"
+                           ) ;                          
+                          
 #my @validSuffixes       = keys %ValidParserMakeArgs ;
 my @validSuffixes       = map { '.'.$_ } keys %ValidParserMakeArgs ;
+
+
+my $version             = $opt_version ;
 
 
 my @infiles         = @opt_infile ;
@@ -62,8 +70,14 @@ my @cleanupScripts = () ;
 my @initScripts    = () ;
 
 
-my %Parsers = () ;
-$Parsers{${outsfx}} = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${outsfx}} } );
+my %Parsers            = () ;
+# if output is needed in ssdt unit test format  add in a .net2 parser to the list
+if ($version == 1)  {
+    $Parsers{${outsfx}}    = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${outsfx}} } );
+}
+else {
+    $Parsers{"${outsfx}2"} = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs2{${outsfx}} } );
+}
 
 my @testSets = () ;
 my %test_testScripts  = () ;
@@ -79,12 +93,31 @@ for my $testFile (@infiles) { ### testfile ..                       done
     $insfx          = substr(lc $insfx,1) ;
 
     croak 'Invalid input file'  unless exists $ValidParserMakeArgs{$insfx} ;
-    $Parsers{${insfx}}  = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${insfx}} } )
+    
+    $Parsers{${insfx}}     = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${insfx}} } )
         unless exists $Parsers{${insfx}} ;
+    # if input is in a .net language, add in a .net2 parser to the list
+    if ( firstidx { $_ eq ${insfx} } ['cs','vb']  != -1 ) {
+        $Parsers{"${insfx}2"}  = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs2{${insfx}} } )
+            unless exists $Parsers{"${insfx}2"} ;
+    }
 
 ### Parsing test file
 
-    my $testSet         = $Parsers{$insfx}->deserialise($testFile);
+    my $testSet         = undef ;
+    eval {
+        $testSet         = $Parsers{$insfx}->deserialise($testFile);
+        } ;
+    if ( ! defined $testSet && exists $Parsers{"${insfx}2"}) {
+        eval {
+            $testSet     = $Parsers{"${insfx}2"}->deserialise($testFile);
+            }
+    }
+    else {
+        croak 'Parsing failed.'; 
+    }
+
+    
     push @testSets, $testSet ;
     $testSet = undef ;
 
@@ -205,7 +238,13 @@ $mergedTestSet->tests(\@testA) ;
 
 ### Serialising parser
 
-$Parsers{$outsfx}->serialise($opt_outfile,$mergedTestSet);
+if ($version == 1)  {
+    $Parsers{$outsfx}->serialise($opt_outfile,$mergedTestSet);
+}
+else {
+    $Parsers{"${outsfx}2"}->serialise($opt_outfile,$mergedTestSet);
+}
+
 
 ### Cloning scripts
 
@@ -231,7 +270,7 @@ mergeGDRTests.pl - Merge multiple GDR test files into one combined file.
 
 =head1 VERSION
 
-1.2.7
+1.2.8
 
 =head1 USAGE
 
@@ -271,6 +310,14 @@ Specify the name of the required class
 
 =for Euclid:
     classname.type:    string
+
+=item  -v[er][sion] [=]<outputversion>
+
+Output version type
+
+=for Euclid:
+    outputversion.type:    /[12]/
+    outputversion.default:  1
 
 
 

@@ -8,7 +8,7 @@ use autodie qw(:all);
 no indirect ':fatal';
 
 use 5.010;
-use version ; our $VERSION = qv('1.0.1');
+use version ; our $VERSION = qv('1.0.2');
 
 use Carp;
 
@@ -18,6 +18,7 @@ use VSGDR::UnitTest::TestSet::Representation;
 use VSGDR::UnitTest::TestSet::Resx;
 
 use Getopt::Euclid qw( :vars<opt_> );
+use List::MoreUtils qw{firstidx} ;
 
 use Data::Dumper;
 use File::Basename;
@@ -27,7 +28,14 @@ my %ValidParserMakeArgs = ( vb  => "NET::VB"
                           , xls => "XLS"
                           , xml => "XML"
                           ) ;
+my %ValidParserMakeArgs2 = ( vb  => "NET2::VB"
+                           , cs  => "NET2::CS"
+                           ) ;                          
+                          
 my @validSuffixes       = map { '.'.$_ } keys %ValidParserMakeArgs ;
+
+
+my $version             = $opt_version ;
 
 
 my($infname, $indirectories, $insfx) = fileparse($opt_infile, @validSuffixes);
@@ -39,11 +47,33 @@ croak 'Invalid output file'   unless defined $outsfx ;
 $outsfx       = lc $outsfx ;
 $outsfx       = substr(lc $outsfx,1) ;
     
-my %Parsers = () ;
-$Parsers{${insfx}}  = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${insfx}} } );
-$Parsers{${outsfx}} = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${outsfx}} } );
+my %Parsers            = () ;
+$Parsers{${insfx}}     = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${insfx}} } );
+# if input is in a .net language, add in a .net2 parser to the list
+if ( firstidx { $_ eq ${insfx} } ['cs','vb']  != -1 ) {
+    $Parsers{"${insfx}2"}  = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs2{${insfx}} } );
+}
+# if output is needed in ssdt unit test format  add in a .net2 parser to the list
+if ($version == 1)  {
+    $Parsers{${outsfx}}    = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${outsfx}} } );
+}
+else {
+    $Parsers{"${outsfx}2"} = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs2{${outsfx}} } );
+}
 
-my $testSet         = $Parsers{$insfx}->deserialise($opt_infile);
+my $testSet         = undef ;
+eval {
+    $testSet         = $Parsers{$insfx}->deserialise($opt_infile);
+    } ;
+if ( ! defined $testSet && exists $Parsers{"${insfx}2"}) {
+    eval {
+        $testSet     = $Parsers{"${insfx}2"}->deserialise($opt_infile);
+        }
+}
+else {
+    croak 'Parsing failed.'; 
+}
+
 
 my $resxname        = $infname . ".resx" ;
 my $o_resx          = VSGDR::UnitTest::TestSet::Resx->new() ;
@@ -66,7 +96,13 @@ foreach my $test ( @{ $testSet->tests() } ) {
     $testSet_clone->className($testSet->className() . '_' . $test->testName() ) ;
     $testSet_clone->tests([$test]) ;
     
-    $Parsers{$outsfx}->serialise($outfname."_".$test->testName().".".$outsfx, $testSet_clone);
+    if ($version == 1)  {
+        $Parsers{$outsfx}->serialise($outfname."_".$test->testName().".".$outsfx, $testSet_clone);
+    }
+    else {
+        $Parsers{"${outsfx}2"}->serialise($outfname."_".$test->testName().".".$outsfx, $testSet_clone);
+    }
+
     $o_resx_clone->serialise( ${outfname}."_".$test->testName().".resx", ${o_resx_clone} ); 
 
 }
@@ -94,7 +130,7 @@ creates a .vb file for each test in myTest.cs, each file name beginning with 'sp
 
 =head1 VERSION
 
-1.0.1
+1.0.2
 
 =head1 USAGE
 
@@ -124,9 +160,19 @@ Specify output file
 
 =back
 
+
+
 =head1 OPTIONS
 
 =over
+
+=item  -v[er][sion] [=]<outputversion>
+
+Output version type
+
+=for Euclid:
+    outputversion.type:    /[12]/
+    outputversion.default:  1
 
 =back
 

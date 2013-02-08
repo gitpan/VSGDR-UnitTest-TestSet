@@ -2,10 +2,11 @@
 
 use Modern::Perl;
 use autodie qw(:all);
-use version ; our $VERSION = qv('1.0.2');
+use version ; our $VERSION = qv('1.0.3');
 
 use Carp;
 use Getopt::Euclid qw( :vars<opt_> );
+use List::MoreUtils qw{firstidx} ;
 
 use Array::Diff ;
 use List::Util qw(first max maxstr min minstr reduce shuffle sum);
@@ -33,6 +34,9 @@ my %ValidParserMakeArgs = ( vb  => "NET::VB"
                           , xls => "XLS"
                           , xml => "XML"
                           ) ;
+my %ValidParserMakeArgs2 = ( vb  => "NET2::VB"
+                           , cs  => "NET2::CS"
+                           ) ;                          
 
 my %Parsers         = () ;
 
@@ -63,9 +67,26 @@ my %Parsers         = () ;
 
         die 'Invalid input file $testFile'  unless exists $ValidParserMakeArgs{$insfx} ;
 
-        $Parsers{${insfx}}  = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${insfx}} } )
+        $Parsers{${insfx}}     = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${insfx}} } )
             if not exists $Parsers{${insfx}} ;
-        my $testSet         = $Parsers{$insfx}->deserialise($testFile);
+        # if input is in a .net language, add in a .net2 parser to the list
+        if ( firstidx { $_ eq ${insfx} } ['cs','vb']  != -1 ) {
+            $Parsers{"${insfx}2"}  = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs2{${insfx}} } )
+                if not exists $Parsers{"${insfx}2"} ;
+        }
+
+        my $testSet         = undef ;
+        eval {
+            $testSet         = $Parsers{$insfx}->deserialise($testFile);
+            } ;
+        if ( ! defined $testSet) {
+            eval {
+                $testSet     = $Parsers{"${insfx}2"}->deserialise($testFile);
+                }
+        }
+        else {
+            croak 'Parsing failed.'; 
+        }
 
         my $ra_tests  = $testSet->tests() ;
         @testNames = map { $_->testName() } @{$ra_tests} ;
@@ -93,6 +114,8 @@ else {
             my @scalarTestConditionNames        = map { $_->conditionName() } grep { $_->conditionEnabled() or $includeDisabledConditions } @{$ra_testConditions} ;
             my @scalarPreTestConditionNames     = map { $_->conditionName() } grep { $_->conditionEnabled() or $includeDisabledConditions } @{$ra_preTestConditions} ;
             my @scalarPostTestConditionNames    = map { $_->conditionName() } grep { $_->conditionEnabled() or $includeDisabledConditions } @{$ra_postTestConditions} ;
+
+warn Dumper @{$ra_testConditions} ;
 
             map { push @{$resSets{$test->testName()}}, $_->conditionResultSet() }
                 @{$ra_testConditions} ;
@@ -393,7 +416,7 @@ reportGDRTests.pl - Reports on Test and Test Conditions within a GDR Unit Test f
 
 =head1 VERSION
 
-1.0.2
+1.0.3
 
 
 

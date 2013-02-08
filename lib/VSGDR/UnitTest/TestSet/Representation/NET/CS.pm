@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 
-our $VERSION = '1.01';
+our $VERSION = '1.02';
 
 use parent qw(VSGDR::UnitTest::TestSet::Representation::NET) ;
 
@@ -803,4 +803,174 @@ __DATA__
     </SECTIONS>
 </ROOT>
 
+-- data tools version of unit tests
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Text;
+using Microsoft.Data.Tools.Schema.Sql.UnitTesting;
+using Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+namespace TestProject1
+{
+    [TestClass()]
+    public class SqlServerUnitTest1 : SqlDatabaseTestClass
+    {
+
+        public SqlServerUnitTest1()
+        {
+            InitializeComponent();
+        }
+
+        [TestInitialize()]
+        public void TestInitialize()
+        {
+            base.InitializeTest();
+        }
+        [TestCleanup()]
+        public void TestCleanup()
+        {
+            base.CleanupTest();
+        }
+
+        [TestMethod()]
+        public void SqlTest1()
+        {
+            SqlDatabaseTestActions testActions = this.SqlTest1Data;
+            // Execute the pre-test script
+            // 
+            System.Diagnostics.Trace.WriteLineIf((testActions.PretestAction != null), "Executing pre-test script...");
+            SqlExecutionResult[] pretestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PretestAction);
+            // Execute the test script
+            // 
+            System.Diagnostics.Trace.WriteLineIf((testActions.TestAction != null), "Executing test script...");
+            SqlExecutionResult[] testResults = TestService.Execute(this.ExecutionContext, this.PrivilegedContext, testActions.TestAction);
+            // Execute the post-test script
+            // 
+            System.Diagnostics.Trace.WriteLineIf((testActions.PosttestAction != null), "Executing post-test script...");
+            SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
+        }
+
+        #region Designer support code
+
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction SqlTest1_TestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.InconclusiveCondition inconclusiveCondition1;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition rowCountCondition1;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition checksumCondition1;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition emptyResultSetCondition1;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ExecutionTimeCondition executionTimeCondition1;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ExpectedSchemaCondition expectedSchemaCondition1;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SqlServerUnitTest1));
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition notEmptyResultSetCondition1;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition scalarValueCondition1;
+            this.SqlTest1Data = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
+            SqlTest1_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            inconclusiveCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.InconclusiveCondition();
+            rowCountCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
+            checksumCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition();
+            emptyResultSetCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition();
+            executionTimeCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ExecutionTimeCondition();
+            expectedSchemaCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ExpectedSchemaCondition();
+            notEmptyResultSetCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
+            scalarValueCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            // 
+            // SqlTest1_TestAction
+            // 
+            SqlTest1_TestAction.Conditions.Add(inconclusiveCondition1);
+            SqlTest1_TestAction.Conditions.Add(rowCountCondition1);
+            SqlTest1_TestAction.Conditions.Add(checksumCondition1);
+            SqlTest1_TestAction.Conditions.Add(emptyResultSetCondition1);
+            SqlTest1_TestAction.Conditions.Add(executionTimeCondition1);
+            SqlTest1_TestAction.Conditions.Add(expectedSchemaCondition1);
+            SqlTest1_TestAction.Conditions.Add(notEmptyResultSetCondition1);
+            SqlTest1_TestAction.Conditions.Add(scalarValueCondition1);
+            resources.ApplyResources(SqlTest1_TestAction, "SqlTest1_TestAction");
+            // 
+            // inconclusiveCondition1
+            // 
+            inconclusiveCondition1.Enabled = true;
+            inconclusiveCondition1.Name = "inconclusiveCondition1";
+            // 
+            // rowCountCondition1
+            // 
+            rowCountCondition1.Enabled = true;
+            rowCountCondition1.Name = "rowCountCondition1";
+            rowCountCondition1.ResultSet = 1;
+            rowCountCondition1.RowCount = 0;
+            // 
+            // SqlTest1Data
+            // 
+            this.SqlTest1Data.PosttestAction = null;
+            this.SqlTest1Data.PretestAction = null;
+            this.SqlTest1Data.TestAction = SqlTest1_TestAction;
+            // 
+            // checksumCondition1
+            // 
+            checksumCondition1.Checksum = null;
+            checksumCondition1.Enabled = true;
+            checksumCondition1.Name = "checksumCondition1";
+            // 
+            // emptyResultSetCondition1
+            // 
+            emptyResultSetCondition1.Enabled = true;
+            emptyResultSetCondition1.Name = "emptyResultSetCondition1";
+            emptyResultSetCondition1.ResultSet = 1;
+            // 
+            // executionTimeCondition1
+            // 
+            executionTimeCondition1.Enabled = true;
+            executionTimeCondition1.ExecutionTime = System.TimeSpan.Parse("00:00:30");
+            executionTimeCondition1.Name = "executionTimeCondition1";
+            // 
+            // expectedSchemaCondition1
+            // 
+            expectedSchemaCondition1.Enabled = true;
+            expectedSchemaCondition1.Name = "expectedSchemaCondition1";
+            resources.ApplyResources(expectedSchemaCondition1, "expectedSchemaCondition1");
+            expectedSchemaCondition1.Verbose = false;
+            // 
+            // notEmptyResultSetCondition1
+            // 
+            notEmptyResultSetCondition1.Enabled = true;
+            notEmptyResultSetCondition1.Name = "notEmptyResultSetCondition1";
+            notEmptyResultSetCondition1.ResultSet = 1;
+            // 
+            // scalarValueCondition1
+            // 
+            scalarValueCondition1.ColumnNumber = 1;
+            scalarValueCondition1.Enabled = true;
+            scalarValueCondition1.ExpectedValue = null;
+            scalarValueCondition1.Name = "scalarValueCondition1";
+            scalarValueCondition1.NullExpected = true;
+            scalarValueCondition1.ResultSet = 1;
+            scalarValueCondition1.RowNumber = 1;
+        }
+
+        #endregion
+
+
+        #region Additional test attributes
+        //
+        // You can use the following additional attributes as you write your tests:
+        //
+        // Use ClassInitialize to run code before running the first test in the class
+        // [ClassInitialize()]
+        // public static void MyClassInitialize(TestContext testContext) { }
+        //
+        // Use ClassCleanup to run code after all tests in a class have run
+        // [ClassCleanup()]
+        // public static void MyClassCleanup() { }
+        //
+        #endregion
+
+        private SqlDatabaseTestActions SqlTest1Data;
+    }
+}

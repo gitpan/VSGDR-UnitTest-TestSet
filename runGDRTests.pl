@@ -4,7 +4,7 @@ use Modern::Perl;
 use autodie qw(:all);
 no indirect ':fatal';
 
-use version ; our $VERSION = qv('1.3.7');
+use version ; our $VERSION = qv('1.3.8');
 
 use Try::Tiny ;
 
@@ -31,6 +31,7 @@ use List::MoreUtils qw(any) ;
 #use Smart::Comments;
 
 use Getopt::Euclid qw( :vars<opt_> );
+use List::MoreUtils qw{firstidx} ;
 use Data::Dumper;
 #use Data::Printer;
 
@@ -46,6 +47,9 @@ my %ValidParserMakeArgs = ( vb  => 'NET::VB'
                           , xls => 'XLS'
                           , xml => 'XML'
                           ) ;
+my %ValidParserMakeArgs2 = ( vb  => "NET2::VB"
+                           , cs  => "NET2::CS"
+                           ) ;                          
 
 #my @validSuffixes       = keys %ValidParserMakeArgs ;
 my @validSuffixes       = map { '.'.$_ } keys %ValidParserMakeArgs ;
@@ -99,10 +103,27 @@ if ( ! $reInit && ( scalar @opt_infile > 1 )) {
         $insfx      = lc $insfx ;
         
         croak 'Invalid input file'  unless exists $ValidParserMakeArgs{$insfx} ;
-        $Parsers{${insfx}}  = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${insfx}} } )
+        $Parsers{${insfx}}     = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${insfx}} } )
             unless exists $Parsers{${insfx}} ;
+        # if input is in a .net language, add in a .net2 parser to the list
+        if ( firstidx { $_ eq ${insfx} } ['cs','vb']  != -1 ) {
+            $Parsers{"${insfx}2"}  = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs2{${insfx}} } )
+                unless exists $Parsers{"${insfx}2"} ;
+        }
 
-        my $testSet         = $Parsers{$insfx}->deserialise($infile);
+        my $testSet         = undef ;
+        eval {
+            $testSet         = $Parsers{$insfx}->deserialise($infile);
+            } ;
+        if ( ! defined $testSet && exists $Parsers{"${insfx}2"}) {
+            eval {
+                $testSet     = $Parsers{"${insfx}2"}->deserialise($infile);
+                }
+        }
+        else {
+            croak 'Parsing failed.'; 
+        }
+        
         push @testSets, $testSet ;
 
         my $resxname    = $infname . '.resx' ;
@@ -183,8 +204,20 @@ foreach my $infile (@opt_infile) {  ## Process SQL scripts:::                 do
     $insfx          = substr(lc $insfx,1) ;    
     croak 'Invalid input file'  unless exists $ValidParserMakeArgs{$insfx} ;
 
-    my $parser      = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${insfx}} } );
-    my $testSet     = $parser->deserialise($infile) ; ## doesn't die on a bad language eg cs for vb - probably a PRD replacement issue
+    my $parser          = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${insfx}} } );
+    my $testSet         = undef ;
+    eval {
+        $testSet         = $parser->deserialise($infile);
+        } ;
+    if ( ! defined $testSet) {
+        eval {
+            $parser      = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs2{${insfx}} } );
+            $testSet     = $parser->deserialise($infile);
+            }
+    }
+
+#    my $testSet     = $parser->deserialise($infile) ; ## doesn't die on a bad language eg cs for vb - probably a PRD replacement issue
+
     my $ra_tests    = $testSet->tests() ;
 
 
@@ -454,7 +487,7 @@ or for each test.
 
 =head1 VERSION
 
-1.3.7
+1.3.8
 
 =head1 USAGE
 
