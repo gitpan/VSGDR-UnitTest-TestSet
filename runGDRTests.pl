@@ -4,7 +4,7 @@ use Modern::Perl;
 use autodie qw(:all);
 no indirect ':fatal';
 
-use version ; our $VERSION = qv('1.3.8');
+use version ; our $VERSION = qv('1.3.9');
 
 use Try::Tiny ;
 
@@ -112,16 +112,19 @@ if ( ! $reInit && ( scalar @opt_infile > 1 )) {
         }
 
         my $testSet         = undef ;
+
         eval {
             $testSet         = $Parsers{$insfx}->deserialise($infile);
             } ;
-        if ( ! defined $testSet && exists $Parsers{"${insfx}2"}) {
-            eval {
-                $testSet     = $Parsers{"${insfx}2"}->deserialise($infile);
-                }
-        }
-        else {
-            croak 'Parsing failed.'; 
+        if ( not defined $testSet ) {
+            if ( exists $Parsers{"${insfx}2"}) {
+                eval {
+                    $testSet     = $Parsers{"${insfx}2"}->deserialise($infile);
+                    }
+            }            
+            else {
+                croak 'Parsing failed.'; 
+            }
         }
         
         push @testSets, $testSet ;
@@ -487,7 +490,7 @@ or for each test.
 
 =head1 VERSION
 
-1.3.8
+1.3.9
 
 =head1 USAGE
 

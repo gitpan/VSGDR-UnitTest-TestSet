@@ -8,7 +8,7 @@ use autodie qw(:all);
 no indirect ':fatal';
 
 use 5.010;
-use version ; our $VERSION = qv('1.0.2');
+use version ; our $VERSION = qv('1.0.3');
 
 use Carp;
 
@@ -65,13 +65,15 @@ my $testSet         = undef ;
 eval {
     $testSet         = $Parsers{$insfx}->deserialise($opt_infile);
     } ;
-if ( ! defined $testSet && exists $Parsers{"${insfx}2"}) {
-    eval {
-        $testSet     = $Parsers{"${insfx}2"}->deserialise($opt_infile);
-        }
-}
-else {
-    croak 'Parsing failed.'; 
+if ( not defined $testSet ) {
+    if ( exists $Parsers{"${insfx}2"}) {
+        eval {
+            $testSet     = $Parsers{"${insfx}2"}->deserialise($opt_infile);
+            }
+    }            
+    else {
+        croak 'Parsing failed.'; 
+    }
 }
 
 
@@ -130,7 +132,7 @@ creates a .vb file for each test in myTest.cs, each file name beginning with 'sp
 
 =head1 VERSION
 
-1.0.2
+1.0.3
 
 =head1 USAGE
 

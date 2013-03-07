@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010;
 
-use version ; our $VERSION = qv('1.0.3');
+use version ; our $VERSION = qv('1.0.4');
 
 use autodie qw(:all);  
 no indirect ':fatal';
@@ -88,13 +88,15 @@ my $testSet         = undef ;
 eval {
     $testSet         = $Parsers{$insfx}->deserialise($inFile);
     } ;
-if ( ! defined $testSet && exists $Parsers{"${insfx}2"}) {
-    eval {
-        $testSet     = $Parsers{"${insfx}2"}->deserialise($inFile);
-        }
-}
-else {
-    croak 'Parsing failed.'; 
+if ( not defined $testSet ) {
+    if ( exists $Parsers{"${insfx}2"}) {
+        eval {
+            $testSet         = $Parsers{$insfx}->deserialise($inFile);
+            }
+    }            
+    else {
+        croak 'Parsing failed.'; 
+    }
 }
 
 
@@ -225,7 +227,7 @@ disableGDRTestCondition.pl - Disable/Enable Test Conditions in a GDR Unit Test f
 
 =head1 VERSION
 
-1.0.3
+1.0.4
 
 
 

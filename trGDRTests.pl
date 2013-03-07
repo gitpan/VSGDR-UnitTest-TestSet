@@ -7,7 +7,7 @@ use autodie qw(:all);
 no indirect ':fatal';
 use 5.010;
 
-use version ; our $VERSION = qv('1.0.2');
+use version ; our $VERSION = qv('1.0.3');
 
 use Carp;
 use Getopt::Euclid qw{:vars<opt_>};
@@ -55,6 +55,7 @@ my %Parsers            = () ;
 $Parsers{${insfx}}     = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs{${insfx}} } );
 # if input is in a .net language, add in a .net2 parser to the list
 if ( firstidx { $_ eq ${insfx} } ['cs','vb']  != -1 ) {
+warn 'doing it';
     $Parsers{"${insfx}2"}  = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs2{${insfx}} } );
 }
 # if output is needed in ssdt unit test format  add in a .net2 parser to the list
@@ -70,13 +71,15 @@ my $testSet         = undef ;
 eval {
     $testSet         = $Parsers{$insfx}->deserialise($opt_infile);
     } ;
-if ( ! defined $testSet && exists $Parsers{"${insfx}2"}) {
-    eval {
-        $testSet     = $Parsers{"${insfx}2"}->deserialise($opt_infile);
-        }
-}
-else {
-    croak 'Parsing failed.'; 
+if ( not defined $testSet ) {
+    if ( exists $Parsers{"${insfx}2"}) {
+        eval {
+            $testSet     = $Parsers{"${insfx}2"}->deserialise($opt_infile);
+            }
+    }            
+    else {
+        croak 'Parsing failed.'; 
+    }
 }
 
 
@@ -107,7 +110,7 @@ Currently supported types are .cs, .vb, .xml, and .xls.
 
 =head1 VERSION
 
-1.0.2
+1.0.3
 
 
 

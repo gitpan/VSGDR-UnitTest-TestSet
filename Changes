@@ -46,5 +46,7 @@ Revision history for VSGDR-UnitTest-TestSet
 	Bug fix to DumpGDRSql.pl.  Print filehandle needs a block around it.
 1.22_01 29/01/2013
 	Sql Server Data Tools 2010 unit test support.  Main scripts working.  Bugs still in others.
+1.22_02 07/03/2013
+	Fixed bug in detection of parsing failure for .NET version 1 attempt.
 
 

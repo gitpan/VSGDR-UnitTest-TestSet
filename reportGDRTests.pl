@@ -2,7 +2,7 @@
 
 use Modern::Perl;
 use autodie qw(:all);
-use version ; our $VERSION = qv('1.0.3');
+use version ; our $VERSION = qv('1.0.4');
 
 use Carp;
 use Getopt::Euclid qw( :vars<opt_> );
@@ -79,14 +79,17 @@ my %Parsers         = () ;
         eval {
             $testSet         = $Parsers{$insfx}->deserialise($testFile);
             } ;
-        if ( ! defined $testSet) {
-            eval {
-                $testSet     = $Parsers{"${insfx}2"}->deserialise($testFile);
-                }
+        if ( not defined $testSet ) {
+            if ( exists $Parsers{"${insfx}2"}) {
+                eval {
+                    $testSet     = $Parsers{"${insfx}2"}->deserialise($testFile);
+                    }
+            }            
+            else {
+                croak 'Parsing failed.'; 
+            }
         }
-        else {
-            croak 'Parsing failed.'; 
-        }
+
 
         my $ra_tests  = $testSet->tests() ;
         @testNames = map { $_->testName() } @{$ra_tests} ;
@@ -416,7 +419,7 @@ reportGDRTests.pl - Reports on Test and Test Conditions within a GDR Unit Test f
 
 =head1 VERSION
 
-1.0.3
+1.0.4
 
 
 

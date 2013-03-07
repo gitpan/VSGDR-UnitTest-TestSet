@@ -6,7 +6,7 @@ use 5.010;
 use autodie qw(:all);  
 no indirect ':fatal';
 
-use version ; our $VERSION = qv('1.0.6');
+use version ; our $VERSION = qv('1.0.7');
 
 use Carp;
 
@@ -97,13 +97,15 @@ my $testSet         = undef ;
 eval {
     $testSet         = $Parsers{$insfx}->deserialise($inFile);
     } ;
-if ( ! defined $testSet && exists $Parsers{"${insfx}2"}) {
-    eval {
-        $testSet     = $Parsers{"${insfx}2"}->deserialise($inFile);
-        }
-}
-else {
-    croak 'Parsing failed.'; 
+if ( not defined $testSet ) {
+    if ( exists $Parsers{"${insfx}2"}) {
+        eval {
+            $testSet         = $Parsers{$insfx}->deserialise($inFile);
+            }
+    }            
+    else {
+        croak 'Parsing failed.'; 
+    }
 }
 
 my $resx_data       = ''; { $/ = undef ; open ( my $fh, "<", "${infname}.resx"); $resx_data = <$fh> ; close $fh } ;
@@ -169,7 +171,7 @@ delGDRTest.pl - Delete Tests from a GDR Unit Test file.
 
 =head1 VERSION
 
-1.0.6
+1.0.7
 
 
 

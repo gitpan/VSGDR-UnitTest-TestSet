@@ -21,7 +21,7 @@ use VSGDR::UnitTest::TestSet::Resx;
 
 use Getopt::Euclid qw( :vars<opt_> );
 use List::MoreUtils qw{firstidx} ;
-use version ; our $VERSION = qv('1.2.8');
+use version ; our $VERSION = qv('1.2.9');
 use Data::Dumper;
 use File::Basename;
 use Smart::Comments;
@@ -105,16 +105,19 @@ for my $testFile (@infiles) { ### testfile ..                       done
 ### Parsing test file
 
     my $testSet         = undef ;
+
     eval {
         $testSet         = $Parsers{$insfx}->deserialise($testFile);
         } ;
-    if ( ! defined $testSet && exists $Parsers{"${insfx}2"}) {
-        eval {
-            $testSet     = $Parsers{"${insfx}2"}->deserialise($testFile);
-            }
-    }
-    else {
-        croak 'Parsing failed.'; 
+    if ( not defined $testSet ) {
+        if ( exists $Parsers{"${insfx}2"}) {
+            eval {
+                $testSet     = $Parsers{"${insfx}2"}->deserialise($testFile);
+                }
+        }            
+        else {
+            croak 'Parsing failed.'; 
+        }
     }
 
     
@@ -270,7 +273,7 @@ mergeGDRTests.pl - Merge multiple GDR test files into one combined file.
 
 =head1 VERSION
 
-1.2.8
+1.2.9
 
 =head1 USAGE
 
