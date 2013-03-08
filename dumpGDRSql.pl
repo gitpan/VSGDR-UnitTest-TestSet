@@ -10,7 +10,7 @@ use Carp;
 
 use Getopt::Euclid qw( :vars<opt_> );
 use List::MoreUtils qw{firstidx} ;
-use version ; our $VERSION = qv('1.0.5');
+use version ; our $VERSION = qv('1.0.6');
 
 use VSGDR::UnitTest::TestSet::Test;
 use VSGDR::UnitTest::TestSet::Test::TestCondition;
@@ -60,7 +60,22 @@ if ( firstidx { $_ eq ${insfx} } ['cs','vb']  != -1 ) {
 }
 
 ### Deserialise tests 
-my $testSet         = $Parsers{$insfx}->deserialise($infile );
+my $testSet         = undef ;
+eval {
+    $testSet         = $Parsers{$insfx}->deserialise($infile);
+    } ;
+if ( not defined $testSet ) {
+    if ( exists $Parsers{"${insfx}2"}) {
+        eval {
+            $testSet     = $Parsers{"${insfx}2"}->deserialise($infile);
+            }
+    }            
+    else {
+        croak 'Parsing failed.'; 
+    }
+}
+
+
 my $resxname        = $infname . ".resx" ;
 my $o_resx          = VSGDR::UnitTest::TestSet::Resx->new() ;
 
@@ -106,7 +121,7 @@ dumpGDRSql.pl - Dump Out the SQL for the Tests in a GDR Unit Test file.
 
 =head1 VERSION
 
-1.0.5
+1.0.6
 
 
 

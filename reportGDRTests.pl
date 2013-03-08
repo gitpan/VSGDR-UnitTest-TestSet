@@ -118,7 +118,7 @@ else {
             my @scalarPreTestConditionNames     = map { $_->conditionName() } grep { $_->conditionEnabled() or $includeDisabledConditions } @{$ra_preTestConditions} ;
             my @scalarPostTestConditionNames    = map { $_->conditionName() } grep { $_->conditionEnabled() or $includeDisabledConditions } @{$ra_postTestConditions} ;
 
-warn Dumper @{$ra_testConditions} ;
+#warn Dumper @{$ra_testConditions} ;
 
             map { push @{$resSets{$test->testName()}}, $_->conditionResultSet() }
                 @{$ra_testConditions} ;

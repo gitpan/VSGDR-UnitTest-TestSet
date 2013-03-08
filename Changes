@@ -48,5 +48,8 @@ Revision history for VSGDR-UnitTest-TestSet
 	Sql Server Data Tools 2010 unit test support.  Main scripts working.  Bugs still in others.
 1.22_02 07/03/2013
 	Fixed bug in detection of parsing failure for .NET version 1 attempt.
+1.23 	08/03/2013
+	Fixed enough of the main scripts to consider that the Sql Server Data Tools 2010 unit test support.
+	and VS2012 SQL projects unit test support to be complete and production ready.
 
 
