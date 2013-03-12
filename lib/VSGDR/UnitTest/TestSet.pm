@@ -10,11 +10,11 @@ VSGDR::UnitTest::TestSet - Sealed class for Microsoft Visual Studio Database Edi
 
 =head1 VERSION
 
-Version 1.23
+Version 1.24
 
 =cut
 
-our $VERSION = '1.23';
+our $VERSION = '1.24';
 
 
 use autodie qw(:all);
@@ -311,7 +311,12 @@ The applications offer support to creators and maintainers of Microsoft Visual S
 Database Project Unit tests, particularly those frustrated by the VS interface to these tests,
 who are also comfortable using perl software from the command line.
 
-Support is given for VS2008 and VS2010.
+Support is given for VS2008, VS2010, and now SSDT and VS2012.  The latter 2 work with Sql unit tests rather than database unit
+tests. In practice this means using some new .Net classes and assemblies, very little else has changed. To generate the new 
+Sql Unit tests "-v2" should be passed as an additional argument to the scripts.  See the script man/help pages.
+Parsing Sql Unit tests is the fallback taken in the scripts if the input unit test source code fails to parse 
+as database unit tests.
+
 Full support is offered for:-
     Scalar, EmptyResultSet, NotEmptyResultSet, RowCount conditions.
 Partial support for:-
