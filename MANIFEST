@@ -7,6 +7,9 @@ lib/VSGDR/UnitTest/TestSet/Representation.pm
 lib/VSGDR/UnitTest/TestSet/Representation/NET.pm
 lib/VSGDR/UnitTest/TestSet/Representation/NET/CS.pm
 lib/VSGDR/UnitTest/TestSet/Representation/NET/VB.pm
+lib/VSGDR/UnitTest/TestSet/Representation/NET2.pm
+lib/VSGDR/UnitTest/TestSet/Representation/NET2/CS.pm
+lib/VSGDR/UnitTest/TestSet/Representation/NET2/VB.pm
 lib/VSGDR/UnitTest/TestSet/Representation/XLS.pm
 lib/VSGDR/UnitTest/TestSet/Representation/XML.pm
 lib/VSGDR/UnitTest/TestSet/Resx.pm
