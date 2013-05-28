@@ -18,6 +18,7 @@ WriteMakefile(
                    "dumpGDRSql.pl", 
                    "genGDRTests.pl", 
                    "mergeGDRTests.pl", 
+                   "replaceGDRSql.pl",
                    "reportGDRTests.pl", 
                    "runGDRTests.pl", 
                    "splitGDRTests.pl", 

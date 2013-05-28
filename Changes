@@ -55,5 +55,6 @@ Revision history for VSGDR-UnitTest-TestSet
 	Updated TestSet docs.
 1.25 	12/03/2013
 	Updated MANIFEST.
-
+1.26 	12/03/2013
+	Added replaceGDRSql.pl
 
