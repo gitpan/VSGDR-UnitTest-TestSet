@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010;
 
-use version ; our $VERSION = qv('1.0.4');
+use version ; our $VERSION = qv('1.1.0');
 
 use autodie qw(:all);  
 no indirect ':fatal';
@@ -109,7 +109,7 @@ my $ra_tests        = $testSet->tests() ;
 ### filter input to output
 
 
-my $newTestSet = VSGDR::UnitTest::TestSet->new( { NAMESPACE        => $testSet->className()
+my $newTestSet = VSGDR::UnitTest::TestSet->new( { NAMESPACE        => $testSet->nameSpace()
                                                  , CLASSNAME        => $testSet->className()
                                                  } 
                                                ) ;
@@ -227,7 +227,7 @@ disableGDRTestCondition.pl - Disable/Enable Test Conditions in a GDR Unit Test f
 
 =head1 VERSION
 
-1.0.4
+1.1.0
 
 
 
@@ -257,6 +257,7 @@ Specify output file
 
 =for Euclid:
     file.type:    writable
+
 
 
 =back

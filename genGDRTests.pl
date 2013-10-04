@@ -31,7 +31,7 @@ use Getopt::Euclid qw( :vars<opt_> );
 use List::MoreUtils qw{firstidx} ;
 use Data::Dumper;
 
-use version ; our $VERSION = qv('1.2.10');
+use version ; our $VERSION = qv('1.3.0');
 
 my $version             = $opt_version ;
 
@@ -130,7 +130,7 @@ for ( my $i=0; $i <= $#opt_infile; $i++ ) {  ## Process SQL scripts:::          
         $Parsers{"${outsfx}2"} = VSGDR::UnitTest::TestSet::Representation->make( { TYPE => $ValidParserMakeArgs2{${outsfx}} } );
     }
 
-    my $testSet = VSGDR::UnitTest::TestSet->new( { NAMESPACE        => "${outfname}_ns"
+    my $testSet = VSGDR::UnitTest::TestSet->new( { NAMESPACE        => "${opt_namespace}"
                                                   , CLASSNAME        => "${outfname}_cls"
                                                   }
                                                 ) ;
@@ -395,11 +395,11 @@ Test is run tw2ce to generate tests only for stable values. (Dates are still a p
 
 =head1 VERSION
 
-1.2.10
+1.3.0
 
 =head1 USAGE
 
-genGDRTests.pl -i <infile> -o <outfile> -c <odbc connection> -r <resultSets> [options]
+genGDRTests.pl -i <infile> -o <outfile> -c <odbc connection> -r <resultSets>  -n <namespace> [options]
 
 
 =head1 REQUIRED ARGUMENTS
@@ -486,6 +486,15 @@ Resultsets (numeric list) for which to generate test conditions
 =for Euclid:
     resultSets.type:    int
     repeatable
+
+=item  -n[ame][space] [=]<namespace>
+
+Specify namespace for test class
+
+=for Euclid:
+    namespace.type:    string
+
+
 
 
 =item  --[no]scalarValues

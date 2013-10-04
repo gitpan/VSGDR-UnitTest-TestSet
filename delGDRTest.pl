@@ -6,7 +6,7 @@ use 5.010;
 use autodie qw(:all);  
 no indirect ':fatal';
 
-use version ; our $VERSION = qv('1.0.7');
+use version ; our $VERSION = qv('1.1.0');
 
 use Carp;
 
@@ -119,7 +119,7 @@ my @filteredTests   = grep { my $s=$_->testName() ; $s !~ ${qr_testname} && $_ ;
 ### filter input to output
 
 
-my $filteredTestSet = VSGDR::UnitTest::TestSet->new( { NAMESPACE        => $testSet->className()
+my $filteredTestSet = VSGDR::UnitTest::TestSet->new( { NAMESPACE        => $testSet->nameSpace()
                                                       , CLASSNAME        => $testSet->className()
                                                       } 
                                                     ) ;
@@ -171,7 +171,7 @@ delGDRTest.pl - Delete Tests from a GDR Unit Test file.
 
 =head1 VERSION
 
-1.0.7
+1.1.0
 
 
 
@@ -209,6 +209,8 @@ Specify test name ( as perl RE )
 
 =for Euclid:
     testname_re.type:    string
+
+
 
 =back
 

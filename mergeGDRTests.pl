@@ -21,7 +21,7 @@ use VSGDR::UnitTest::TestSet::Resx;
 
 use Getopt::Euclid qw( :vars<opt_> );
 use List::MoreUtils qw{firstidx} ;
-use version ; our $VERSION = qv('1.2.9');
+use version ; our $VERSION = qv('1.3.0');
 use Data::Dumper;
 use File::Basename;
 use Smart::Comments;
@@ -220,7 +220,7 @@ croak "Duplicate Test names exist:- @dupTestNames, Tests cannot be merged."
 croak "Duplicate Condition names exist: @dupConditionNames, Tests cannot be merged."
     if scalar @dupConditionNames ;
 }
-my $mergedTestSet = VSGDR::UnitTest::TestSet->new( { NAMESPACE        => $classname
+my $mergedTestSet = VSGDR::UnitTest::TestSet->new( { NAMESPACE        => $opt_namespace
                                                     , CLASSNAME        => $classname
                                                     }
                                                   ) ;
@@ -273,11 +273,11 @@ mergeGDRTests.pl - Merge multiple GDR test files into one combined file.
 
 =head1 VERSION
 
-1.2.9
+1.3.0
 
 =head1 USAGE
 
-mergeGDRTests.pl -i <infile> -o <outfile> [options]
+mergeGDRTests.pl -i <infile> -o <outfile>  -n <namespace> [options]
 
 
 =head1 REQUIRED ARGUMENTS
@@ -298,6 +298,16 @@ Specify output file
 
 =for Euclid:
     file.type:    writable
+
+
+=item  -n[ame][space] [=]<namespace>
+
+Specify namespace for test class
+
+=for Euclid:
+    namespace.type:    string
+
+
 
 =back
 

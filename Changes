@@ -55,6 +55,9 @@ Revision history for VSGDR-UnitTest-TestSet
 	Updated TestSet docs.
 1.25 	12/03/2013
 	Updated MANIFEST.
-1.26 	12/03/2013
+1.26 	28/05/2013
 	Added replaceGDRSql.pl
+1.27 	04/10/2013
+	Added namespace parameter to genGDRTests.pl and mergeGDRTests.pl  
+	Fixed delGDRTest.pl and disableGDRTestCondition.pl to retain existing namespace.
 
