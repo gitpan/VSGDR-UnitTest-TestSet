@@ -1,10 +1,21 @@
 #!/bin/perl
 
 use Modern::Perl;
+use strict;
+use warnings;
+
 use autodie qw(:all);
-use version ; our $VERSION = qv('1.0.4');
+use version ; our $VERSION = qv('1.0.5');
 
 use Carp;
+
+our $opt_infile;
+our $opt_warnings;
+our $opt_disabled;
+our $opt_reverse;
+our $opt_totals;
+
+
 use Getopt::Euclid qw( :vars<opt_> );
 use List::MoreUtils qw{firstidx} ;
 
@@ -419,7 +430,7 @@ reportGDRTests.pl - Reports on Test and Test Conditions within a GDR Unit Test f
 
 =head1 VERSION
 
-1.0.4
+1.0.5
 
 
 

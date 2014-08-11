@@ -19,9 +19,15 @@ use VSGDR::UnitTest::TestSet::Test::TestCondition;
 use VSGDR::UnitTest::TestSet::Representation;
 use VSGDR::UnitTest::TestSet::Resx;
 
+our @opt_infile;
+our $opt_outfile;
+our $opt_version;
+our $opt_classname;
+our $opt_namespace;
+
 use Getopt::Euclid qw( :vars<opt_> );
 use List::MoreUtils qw{firstidx} ;
-use version ; our $VERSION = qv('1.3.0');
+use version ; our $VERSION = qv('1.3.1');
 use Data::Dumper;
 use File::Basename;
 use Smart::Comments;
@@ -273,7 +279,7 @@ mergeGDRTests.pl - Merge multiple GDR test files into one combined file.
 
 =head1 VERSION
 
-1.3.0
+1.3.1
 
 =head1 USAGE
 

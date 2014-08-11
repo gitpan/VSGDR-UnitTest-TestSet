@@ -8,9 +8,14 @@ no indirect ':fatal';
 use 5.010;
 use Carp;
 
+our $opt_infile;
+our $opt_action;
+our $opt_test;
+our $opt_sinfile;
+
 use Getopt::Euclid qw( :vars<opt_> );
 use List::MoreUtils qw{firstidx} ;
-use version ; our $VERSION = qv('1.0.0');
+use version ; our $VERSION = qv('1.0.1');
 
 use VSGDR::UnitTest::TestSet::Test;
 use VSGDR::UnitTest::TestSet::Test::TestCondition;
@@ -123,7 +128,7 @@ replaceGDRSql.pl - Replace the embedded SQL for a Test in a GDR Unit Test file.
 
 =head1 VERSION
 
-1.0.0
+1.0.1
 
 
 

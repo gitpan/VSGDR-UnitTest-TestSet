@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010;
 
-use version ; our $VERSION = qv('1.1.0');
+use version ; our $VERSION = qv('1.1.1');
 
 use autodie qw(:all);  
 no indirect ':fatal';
@@ -34,6 +34,13 @@ my %ValidParserMakeArgs2 = ( vb  => "NET2::VB"
 
 
 ### get and validate parameters
+
+our $opt_infile;
+our $opt_outfile;
+our $opt_version;
+our @opt_enable;
+our @opt_disable;
+
 
 croak 'no input file'               unless defined($opt_infile);
 croak 'no output file'              unless defined($opt_outfile);
@@ -227,7 +234,7 @@ disableGDRTestCondition.pl - Disable/Enable Test Conditions in a GDR Unit Test f
 
 =head1 VERSION
 
-1.1.0
+1.1.1
 
 
 

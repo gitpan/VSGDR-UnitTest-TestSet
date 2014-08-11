@@ -7,9 +7,14 @@ use autodie qw(:all);
 no indirect ':fatal';
 use 5.010;
 
-use version ; our $VERSION = qv('1.0.3');
+use version ; our $VERSION = qv('1.0.4');
 
 use Carp;
+
+our $opt_version;
+our $opt_infile;
+our $opt_outfile;
+
 use Getopt::Euclid qw{:vars<opt_>};
 use File::Basename;
 use List::MoreUtils qw{firstidx} ;
@@ -110,7 +115,7 @@ Currently supported types are .cs, .vb, .xml, and .xls.
 
 =head1 VERSION
 
-1.0.3
+1.0.4
 
 
 

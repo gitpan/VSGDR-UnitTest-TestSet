@@ -1,6 +1,8 @@
 package VSGDR::SQLServer::DataType::Generic ;
 
 our $VERSION    = "1.01";
+use strict;
+use warnings;
 
 use parent qw(VSGDR::SQLServer::DataType);
 

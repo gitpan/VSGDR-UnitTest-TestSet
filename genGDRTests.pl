@@ -1,7 +1,8 @@
 #!/bin/perl
 
 use Modern::Perl;
-
+use strict;
+use warnings;
 use autodie qw(:all);
 no indirect ':fatal';
 
@@ -31,7 +32,21 @@ use Getopt::Euclid qw( :vars<opt_> );
 use List::MoreUtils qw{firstidx} ;
 use Data::Dumper;
 
-use version ; our $VERSION = qv('1.3.0');
+use version ; our $VERSION = qv('1.3.1');
+
+our @opt_infile;
+our @opt_outfile;
+our $opt_noscalarValues;
+our $opt_notypes;
+our $opt_version;
+our $opt_connection;
+our @opt_resultSets;
+our $opt_pconnection;
+our $opt_initfile;
+our $opt_prefile;
+our $opt_postfile;
+our $opt_cleanupfile;
+our $opt_namespace;
 
 my $version             = $opt_version ;
 
@@ -47,7 +62,7 @@ $priv_dataBase              = $opt_pconnection if defined $opt_pconnection ;
 
 
 my @resultSets              = () ;
-   @resultSets              = @opt_resultSets if defined @opt_resultSets ;
+   @resultSets              = @opt_resultSets if @opt_resultSets ;
 my $generateAllResultSets   = ! ( scalar @resultSets ) ;
 my $generateScalarChecks    = $opt_scalarValues ;
 
@@ -395,7 +410,7 @@ Test is run tw2ce to generate tests only for stable values. (Dates are still a p
 
 =head1 VERSION
 
-1.3.0
+1.3.1
 
 =head1 USAGE
 

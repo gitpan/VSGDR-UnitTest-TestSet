@@ -4,7 +4,7 @@ use Modern::Perl;
 use autodie qw(:all);
 no indirect ':fatal';
 
-use version ; our $VERSION = qv('1.3.9');
+use version ; our $VERSION = qv('1.3.10');
 
 use Try::Tiny ;
 
@@ -29,6 +29,13 @@ use VSGDR::UnitTest::TestSet::Resx;
 use List::MoreUtils qw(any) ;
 
 #use Smart::Comments;
+
+our $opt_connection;
+our $opt_pconnection;
+our $opt_noReInit;
+our $opt_noDebug;
+our $opt_noWarn;
+our @opt_infile;
 
 use Getopt::Euclid qw( :vars<opt_> );
 use List::MoreUtils qw{firstidx} ;
@@ -490,7 +497,7 @@ or for each test.
 
 =head1 VERSION
 
-1.3.9
+1.3.10
 
 =head1 USAGE
 

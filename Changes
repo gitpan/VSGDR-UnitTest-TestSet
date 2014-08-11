@@ -60,4 +60,7 @@ Revision history for VSGDR-UnitTest-TestSet
 1.27 	04/10/2013
 	Added namespace parameter to genGDRTests.pl and mergeGDRTests.pl  
 	Fixed delGDRTest.pl and disableGDRTestCondition.pl to retain existing namespace.
+1.28 	11/09/2014
+	Kwalitee counts.
+
 

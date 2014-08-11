@@ -8,7 +8,7 @@ use autodie qw(:all);
 no indirect ':fatal';
 
 use 5.010;
-use version ; our $VERSION = qv('1.0.3');
+use version ; our $VERSION = qv('1.0.5');
 
 use Carp;
 
@@ -16,6 +16,11 @@ use VSGDR::UnitTest::TestSet::Test;
 use VSGDR::UnitTest::TestSet::Test::TestCondition;
 use VSGDR::UnitTest::TestSet::Representation;
 use VSGDR::UnitTest::TestSet::Resx;
+
+
+our $opt_version;
+our $opt_infile;
+our $opt_outfile;
 
 use Getopt::Euclid qw( :vars<opt_> );
 use List::MoreUtils qw{firstidx} ;
@@ -132,7 +137,7 @@ creates a .vb file for each test in myTest.cs, each file name beginning with 'sp
 
 =head1 VERSION
 
-1.0.3
+1.0.5
 
 =head1 USAGE
 

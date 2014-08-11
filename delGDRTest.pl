@@ -6,7 +6,7 @@ use 5.010;
 use autodie qw(:all);  
 no indirect ':fatal';
 
-use version ; our $VERSION = qv('1.1.0');
+use version ; our $VERSION = qv('1.1.1');
 
 use Carp;
 
@@ -37,11 +37,17 @@ my %ValidParserMakeArgs2 = ( vb  => "NET2::VB"
 my @validSuffixes       = map { '.'.$_ } keys %ValidParserMakeArgs ;
 
 #TODO: 1. Init and cleanup test code still seems to go missing.
+#TODO: 2. Fix the dangling $version variable
+
 
 
 ### get and validate parameters
 
 warn 'may break parsable output';
+
+our $opt_infile;
+our $opt_outfile;
+our $opt_testname;
 
 croak 'no input file'               unless defined($opt_infile);
 croak 'no output file'              unless defined($opt_outfile);
@@ -171,7 +177,7 @@ delGDRTest.pl - Delete Tests from a GDR Unit Test file.
 
 =head1 VERSION
 
-1.1.0
+1.1.1
 
 
 

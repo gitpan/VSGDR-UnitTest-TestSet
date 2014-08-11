@@ -10,7 +10,7 @@ use Carp;
 
 use Getopt::Euclid qw( :vars<opt_> );
 use List::MoreUtils qw{firstidx} ;
-use version ; our $VERSION = qv('1.0.6');
+use version ; our $VERSION = qv('1.0.7');
 
 use VSGDR::UnitTest::TestSet::Test;
 use VSGDR::UnitTest::TestSet::Test::TestCondition;
@@ -36,6 +36,7 @@ my %ValidParserMakeArgs2 = ( vb  => "NET2::VB"
 #my @validSuffixes       = keys %ValidParserMakeArgs ;
 my @validSuffixes       = map { '.'.$_ } keys %ValidParserMakeArgs ;
 
+our $opt_infile;
 
 croak 'no input file'  unless defined($opt_infile) ;
 my $infile;
@@ -121,7 +122,7 @@ dumpGDRSql.pl - Dump Out the SQL for the Tests in a GDR Unit Test file.
 
 =head1 VERSION
 
-1.0.6
+1.0.7
 
 
 
