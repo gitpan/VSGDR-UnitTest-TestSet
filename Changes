@@ -62,5 +62,7 @@ Revision history for VSGDR-UnitTest-TestSet
 	Fixed delGDRTest.pl and disableGDRTestCondition.pl to retain existing namespace.
 1.28 	11/09/2014
 	Kwalitee counts.
+1.29 	11/09/2014
+	Kwalitee gaming - removed VERSION from all non-version bearing modules.
 
 
