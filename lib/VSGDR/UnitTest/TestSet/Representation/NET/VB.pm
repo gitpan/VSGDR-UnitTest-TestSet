@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 
-our $VERSION = '1.04';
+#our \$VERSION = '1.04';
 
 
 use parent qw(VSGDR::UnitTest::TestSet::Representation::NET) ;

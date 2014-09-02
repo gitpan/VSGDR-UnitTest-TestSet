@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 
-our $VERSION = '1.01';
+#our \$VERSION = '1.01';
 
 
 #TODO 1. Add support for test method attributes eg new vs2010 exceptions  ala : -[ExpectedSqlException(MessageNumber = nnnnn, Severity = x, MatchFirstError = false, State = y)]

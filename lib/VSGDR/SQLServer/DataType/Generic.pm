@@ -1,6 +1,6 @@
 package VSGDR::SQLServer::DataType::Generic ;
 
-our $VERSION    = "1.01";
+#our \$VERSION    = "1.01";
 use strict;
 use warnings;
 

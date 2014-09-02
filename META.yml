@@ -47,4 +47,4 @@ requires:
   indirect: 0
   perl: 5.010000
   version: 0
-version: 1.29
+version: 1.30
